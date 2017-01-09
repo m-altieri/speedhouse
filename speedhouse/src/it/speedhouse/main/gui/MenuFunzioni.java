@@ -87,4 +87,9 @@ public class MenuFunzioni extends JMenu {
 		creaDatabase.setEnabled(true);
 		produciGrafici.setEnabled(false);
 	}
+	
+	public ArrayList<JMenuItem> getDatabaseCreati()
+	{
+		return databaseCreati;
+	}
 }

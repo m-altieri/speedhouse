@@ -60,6 +60,8 @@ public class Index extends Finestra implements ActionListener {
 			dispose();
 			break;
 		default:
+			this.setTitle("speedhouse - " + e.getActionCommand());
+			databaseNonSelezionato.setVisible(false);
 			break;
 		}
 	}
