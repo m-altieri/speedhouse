@@ -2,6 +2,7 @@ package it.speedhouse.main.gui;
 
 import java.awt.event.ActionListener;
 
+import javax.swing.Action;
 import javax.swing.JMenuBar;
 
 public class BarraMenu extends JMenuBar {
@@ -23,7 +24,10 @@ public class BarraMenu extends JMenuBar {
 		
 		menuFunzioni = new MenuFunzioni(asc);
 		this.add(menuFunzioni);
+		menuFunzioni.setActionCommand("menuFunzioni");
+		
 		menuDatabase = new MenuDatabase(asc);
+		
 		
 	}
 	

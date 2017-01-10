@@ -19,6 +19,11 @@ public class Index extends Finestra implements ActionListener {
 	
 	private boolean databaseSelezionato; //l'utente deve selezionare un db. all'inizio questa variabile è false.
 	
+	public BarraMenu getBarraMenu()
+	{
+		return barraMenu;
+	}
+	
 	public Index()
 	{
 		super();
@@ -51,7 +56,7 @@ public class Index extends Finestra implements ActionListener {
 			dispose();
 			break;
 		case "creaDatabase":
-			dispose();
+			new CreaDatabase(this);
 			break;
 		case "selezionaDatabase":
 			dispose();
@@ -59,10 +64,14 @@ public class Index extends Finestra implements ActionListener {
 		case "produciGrafici":
 			dispose();
 			break;
-		default:
+		default: //questa roba sta nel default perchè non posso sapere a priori i nomi che avranno i database
+			//quindi prendo il nome al momento
 			this.setTitle("speedhouse - " + e.getActionCommand());
 			databaseNonSelezionato.setVisible(false);
+			
 			break;
 		}
 	}
+	
+	
 }

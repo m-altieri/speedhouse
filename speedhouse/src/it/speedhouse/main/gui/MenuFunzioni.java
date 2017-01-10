@@ -80,12 +80,31 @@ public class MenuFunzioni extends JMenu {
 			e.setActionCommand(e.getText());
 			e.addActionListener(asc);
 		}
-		
+		databaseCreati.clear();
 		s.close();
 		
 		importaCsv.setEnabled(false);
 		creaDatabase.setEnabled(true);
 		produciGrafici.setEnabled(false);
+	}
+	
+	public void aggiornaDB() throws FileNotFoundException
+	{
+		//rimuovi prima tutti
+		selezionaDatabase.removeAll();
+		
+		//visualizza nel menu tutti i db creati
+		File databases = new File("databases.txt");
+		Scanner s = new Scanner(databases);
+		while (s.hasNext())
+		databaseCreati.add(new JMenuItem(s.nextLine()));
+		for (JMenuItem e : databaseCreati) {
+			selezionaDatabase.add(e);
+			e.setActionCommand(e.getText());
+			e.addActionListener(asc);
+		}
+		databaseCreati.clear();
+		s.close();
 	}
 	
 	public ArrayList<JMenuItem> getDatabaseCreati()
