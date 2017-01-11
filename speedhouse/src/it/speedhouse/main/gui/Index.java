@@ -14,7 +14,6 @@ public class Index extends Finestra implements ActionListener {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private BarraMenu barraMenu;
 	private JLabel databaseNonSelezionato;
 	
 	private boolean databaseSelezionato; //l'utente deve selezionare un db. all'inizio questa variabile è false.
@@ -64,11 +63,9 @@ public class Index extends Finestra implements ActionListener {
 		case "produciGrafici":
 			dispose();
 			break;
-		default: //questa roba sta nel default perchè non posso sapere a priori i nomi che avranno i database
-			//quindi prendo il nome al momento
-			this.setTitle("speedhouse - " + e.getActionCommand());
-			databaseNonSelezionato.setVisible(false);
-			
+		default: 
+			dispose();
+			new FinestraDatabase(e.getActionCommand());
 			break;
 		}
 	}

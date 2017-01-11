@@ -5,3 +5,5 @@ db4
 db5
 db6
 cipolla
+esempio
+pippo

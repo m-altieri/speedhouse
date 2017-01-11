@@ -19,13 +19,13 @@ public class CreaDatabase extends JFrame implements ActionListener {
 	private static final int HEIGHT = 200;
 	
 	
-	private Index asc;
+	private JFrame asc;
 	
 	private JLabel nome;
 	private JTextField txtNome;
 	private JButton conferma;
 	
-	public CreaDatabase(Index asc)
+	public CreaDatabase(JFrame asc)
 	{
 		this.asc = asc;
 		
@@ -61,7 +61,7 @@ public class CreaDatabase extends JFrame implements ActionListener {
 			}
 			pw.println(txtNome.getText());
 			pw.close();
-			MenuFunzioni mf = (MenuFunzioni) asc.getBarraMenu().getMenu(0);
+			MenuFunzioni mf = (MenuFunzioni) asc.getJMenuBar().getMenu(0);
 			try {
 				mf.aggiornaDB();
 			} catch (FileNotFoundException e1) {

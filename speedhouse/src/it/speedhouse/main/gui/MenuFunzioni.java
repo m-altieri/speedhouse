@@ -88,6 +88,13 @@ public class MenuFunzioni extends JMenu {
 		produciGrafici.setEnabled(false);
 	}
 	
+	public void sbloccaImportazione()
+	{
+		importaCsv.setEnabled(true);
+		creaDatabase.setEnabled(true);
+		produciGrafici.setEnabled(true);
+	}
+	
 	public void aggiornaDB() throws FileNotFoundException
 	{
 		//rimuovi prima tutti
