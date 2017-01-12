@@ -147,17 +147,14 @@ public class ServiziDB {
 		      sql2 = "CREATE TABLE " + nomeDb + "_" + nomeTabella + " (";
 		      for (int i = 0; i < tipi.length; i++) {
 		    	  sql2 += colonne[i] + " ";
-		    	  switch (tipi[i]) {
-		    	  case "int":
+		    	  
+		    	  if (ServiziGenerici.isInteger(tipi[i]))
 		    		  sql2 += "INT";
-		    		  break;
-		    	  case "decimal":
+		    	  else if (ServiziGenerici.isDecimal(tipi[i]))
 		    		  sql2 += "FLOAT(8,4)";
-		    		  break;
-		    	  case "string":
-		    		  sql2 += "VARCHAR(30)";
-		    		  break;
-		    	  }
+		    	  else
+		    		  sql += "VARCHAR(30)";
+		    	
 		    	  if (tipi.length - i > 1)
 		    		  sql2 += ", ";
 		      }
