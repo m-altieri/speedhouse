@@ -149,7 +149,7 @@ public class ServiziDB {
 		    	  sql2 += colonne[i] + " ";
 		    	  
 		    	  if (tipi[i].equals("string"))
-		    		  sql2 += "varchar(30)";
+		    		  sql2 += "varchar(100)";
 		    	  else
 		    		  sql2 += tipi[i];
 		    	
