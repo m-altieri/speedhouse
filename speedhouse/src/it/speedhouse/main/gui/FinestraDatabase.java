@@ -93,7 +93,8 @@ public class FinestraDatabase extends Finestra implements ActionListener, FocusL
 				this.update(getGraphics());
 				try {
 					//usa come nome della tabella il nome del csv ma senza le ultime 4 lettere (.csv)
-					ServiziDB.creaTabella(this.nomeDb, ServiziFile.estraiTipi(file), file.getName().substring(0, file.getName().length() - 4), ServiziFile.estraiColonne(file)); 
+					ServiziDB.creaTabella(this.nomeDb, ServiziFile.estraiTipi(file), file.getName().substring(0, file.getName().length() - 4), ServiziFile.estraiColonne(file));
+					ServiziDB.inserisciDati(this.nomeDb, file.getName().substring(0, file.getName().length() - 4), ServiziFile.estraiRighe(file));
 				} catch (FileNotFoundException e1) {
 					e1.printStackTrace();
 				}
