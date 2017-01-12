@@ -148,12 +148,7 @@ public class ServiziDB {
 		      for (int i = 0; i < tipi.length; i++) {
 		    	  sql2 += colonne[i] + " ";
 		    	  
-		    	  if (ServiziGenerici.isInteger(tipi[i]))
-		    		  sql2 += "INT";
-		    	  else if (ServiziGenerici.isDecimal(tipi[i]))
-		    		  sql2 += "FLOAT(8,4)";
-		    	  else
-		    		  sql += "VARCHAR(30)";
+		    	  sql2 += tipi[i];
 		    	
 		    	  if (tipi.length - i > 1)
 		    		  sql2 += ", ";
