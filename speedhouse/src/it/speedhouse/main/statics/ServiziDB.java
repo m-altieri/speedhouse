@@ -148,7 +148,10 @@ public class ServiziDB {
 		      for (int i = 0; i < tipi.length; i++) {
 		    	  sql2 += colonne[i] + " ";
 		    	  
-		    	  sql2 += tipi[i];
+		    	  if (tipi[i].equals("string"))
+		    		  sql2 += "varchar(30)";
+		    	  else
+		    		  sql2 += tipi[i];
 		    	
 		    	  if (tipi.length - i > 1)
 		    		  sql2 += ", ";
@@ -221,6 +224,8 @@ public class ServiziDB {
 		    			  sql2 += tupla[j];
 		    		  else if (ServiziGenerici.isDecimal(tupla[j]))
 		    			  sql2 += tupla[j];
+		    		  else if (tupla[j].equals(""))
+		    			  sql2 += "null";
 		    		  else
 		    			  sql2 += "\"" + tupla[j] + "\"";
 		    		  
