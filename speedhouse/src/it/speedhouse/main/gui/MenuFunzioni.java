@@ -93,6 +93,7 @@ public class MenuFunzioni extends JMenu {
 		importaCsv.setEnabled(true);
 		creaDatabase.setEnabled(true);
 		produciGrafici.setEnabled(true);
+		selezionaDatabase.setEnabled(true);
 	}
 	
 	public void aggiornaDB() throws FileNotFoundException
