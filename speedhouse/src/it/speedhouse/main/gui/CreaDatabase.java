@@ -59,6 +59,7 @@ public class CreaDatabase extends JFrame implements ActionListener {
 			} catch (FileNotFoundException e1) {
 				e1.printStackTrace();
 			}
+			//pw.println(); //per andare a capo, risolve il bug in cui creando un nuovo db viene messo accanto all'ultimo
 			pw.println(txtNome.getText());
 			pw.close();
 			MenuFunzioni mf = (MenuFunzioni) asc.getJMenuBar().getMenu(0);

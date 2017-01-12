@@ -104,7 +104,7 @@ public class MenuFunzioni extends JMenu {
 		File databases = new File("databases.txt");
 		Scanner s = new Scanner(databases);
 		while (s.hasNext())
-		databaseCreati.add(new JMenuItem(s.nextLine()));
+			databaseCreati.add(new JMenuItem(s.nextLine()));
 		for (JMenuItem e : databaseCreati) {
 			selezionaDatabase.add(e);
 			e.setActionCommand(e.getText());
