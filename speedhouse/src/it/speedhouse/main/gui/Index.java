@@ -3,7 +3,6 @@ package it.speedhouse.main.gui;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileNotFoundException;
 
 import javax.swing.JLabel;
 
@@ -31,12 +30,12 @@ public class Index extends Finestra implements ActionListener {
 		databaseNonSelezionato = new JLabel("Non hai ancora selezionato un database...");
 		this.add(databaseNonSelezionato, BorderLayout.CENTER);
 		
-		try {
+//		try {
 			barraMenu.getMenuFunzioni().forzaSelezioneDB();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} //finchè non seleziona un db le altre funzioni sono disabilitate
+//		} catch (FileNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} //finchè non seleziona un db le altre funzioni sono disabilitate
 		
 		this.setVisible(true);
 	}
