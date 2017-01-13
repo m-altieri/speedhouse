@@ -8,11 +8,15 @@ import junit.framework.Assert;
 import it.speedhouse.main.statics.ServiziGenerici;
 import it.speedhouse.main.statics.ServiziGenerici;
 import it.speedhouse.main.statics.*
-;public class TestServiziGenerici {
+public class TestServiziGenerici {
 
-	public static final String intMax = "2147483647";
-	public static final String intMin = "2147483647";
+
+public static final String intMax = "2147483647";
+public static final String intMin = "2147483647";
 	
+public class TestServiziFile {
+
+
 	@Before
 	public void setUp() {
 

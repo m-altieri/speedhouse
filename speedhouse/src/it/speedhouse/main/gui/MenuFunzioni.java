@@ -62,11 +62,16 @@ public class MenuFunzioni extends JMenu {
 	 * all'inizio l'utente deve selezionare un database. se non l'ha fatto le altre funzioni non sono disponibili.
 	 * @throws FileNotFoundException
 	 */
-	public void forzaSelezioneDB() throws FileNotFoundException
+	public void forzaSelezioneDB()
 	{
 		//abilita la funzione solo se esistono già database creati
 		File databases = new File("databases.txt");
-		Scanner s = new Scanner(databases);
+		Scanner s = null;
+		try {
+			s = new Scanner(databases);
+		} catch (FileNotFoundException e) {
+			;
+		}
 		if (s.hasNext())
 			selezionaDatabase.setEnabled(true);
 		else

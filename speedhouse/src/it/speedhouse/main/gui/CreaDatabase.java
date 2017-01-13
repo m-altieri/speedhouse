@@ -15,6 +15,10 @@ import javax.swing.JTextField;
 
 public class CreaDatabase extends JFrame implements ActionListener {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private static final int WIDTH = 500;
 	private static final int HEIGHT = 200;
 	
