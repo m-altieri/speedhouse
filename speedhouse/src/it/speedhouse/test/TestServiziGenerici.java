@@ -1,21 +1,16 @@
 package it.speedhouse.test;
-import it.speedhouse.main.statics.*;
 
 import org.junit.*;
 
-import it.speedhouse.main.statics.ServiziFile;
 import junit.framework.Assert;
 import it.speedhouse.main.statics.ServiziGenerici;
-import it.speedhouse.main.statics.ServiziGenerici;
-import it.speedhouse.main.statics.*
+
+@SuppressWarnings("deprecation")
 public class TestServiziGenerici {
 
 
-public static final String intMax = "2147483647";
-public static final String intMin = "2147483647";
-	
-public class TestServiziFile {
-
+	public static final String intMax = "2147483647";
+	public static final String intMin = "2147483647";
 
 	@Before
 	public void setUp() {
