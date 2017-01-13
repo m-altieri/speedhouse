@@ -1,10 +1,11 @@
 package it.speedhouse.main.statics;
 
-public class ServiziGenerici {
+public abstract class ServiziGenerici {
 
 	/**
 	 * Determina se la stringa passata rappresenta un intero.
 	 * Può essere anche negativo.
+	 * Non è necessario che la variabile sia compatibile col tipo int per essere considerata un intero
 	 * @param s - La stringa da verificare.
 	 * @return true se s rappresenta un intero, false altrimenti.
 	 */

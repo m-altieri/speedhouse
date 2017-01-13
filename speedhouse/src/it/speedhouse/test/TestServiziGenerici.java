@@ -10,7 +10,7 @@ public class TestServiziGenerici {
 
 
 	public static final String intMax = "2147483647";
-	public static final String intMin = "2147483647";
+	public static final String intMin = "-2147483647";
 
 	@Before
 	public void setUp() {
@@ -22,6 +22,13 @@ public class TestServiziGenerici {
 		
 	}
 
+	/**
+	 * Testing del metodo isInteger appartenente alla classe ServiziGenerici del package it.speedhouse.main.statics.
+	 * Precondizione: Deve essere passata una variabile di tipo stringa.
+	 * Il metodo restituisce true se la variabile contiene un numero intero, mentre nel caso contrario restituisce false.
+	 * 
+	 * 
+	 */
 	@Test
 	public void testIsInteger()
 	{
@@ -50,10 +57,17 @@ public class TestServiziGenerici {
 		//casi limite valore Integer
 		Assert.assertEquals(ServiziGenerici.isInteger(intMax), true);
 		Assert.assertEquals(ServiziGenerici.isInteger(intMin), true);
+		Assert.assertEquals(ServiziGenerici.isInteger(Integer.toString(Integer.parseInt(intMax) + 1)), true);
+		
 		
 		
 	}
 	
+	/*
+	 * Testing del metodo isDecimal appartenente alla classe ServiziGenerici del package it.speedhouse.main.statics.
+	 * Precondizione: Deve essere passata una variabile di tipo stringa.
+	 * Il metodo restituisce true se la variabile contiene un numero intero o decimale, mentre nel caso contrario restituisce false.
+	 */
 	@Test
 	public void testIsDecimal()
 	{
@@ -76,20 +90,62 @@ public class TestServiziGenerici {
 		Assert.assertEquals(ServiziGenerici.isDecimal("-0.0"), true);
 		Assert.assertEquals(ServiziGenerici.isDecimal("-.0"), true);
 		Assert.assertEquals(ServiziGenerici.isDecimal("6."), false);
+		
+		//test casi limite
+		Assert.assertEquals(ServiziGenerici.isDecimal(intMax),true);
+		Assert.assertEquals(ServiziGenerici.isDecimal(intMin),true);
+		Assert.assertEquals(ServiziGenerici.isInteger(Integer.toString(Integer.parseInt(intMax) + 1)), true);
 	}	
 	
+	/*
+	 * Testing del metodo isString appartenente alla classe ServiziGenerici del package it.speedhouse.main.statics.
+	 * Precondizione: Deve essere passata una variabile di tipo stringa.
+	 * Il metodo restituisce true se la variabile contiene un numero intero o decimale, mentre nel caso contrario restituisce false.
+	 */
 	@Test
-	public void testisString()
+	public void testIsString()
 	{
-		Assert.assertEquals(true, true);
+		//test base
+		Assert.assertEquals(ServiziGenerici.isString("Hello World!"), true);
+		Assert.assertEquals(ServiziGenerici.isString("ç@45	qwe+ù§"), true);
+		Assert.assertEquals(ServiziGenerici.isString(".5"), false);
+		Assert.assertEquals(ServiziGenerici.isString("-9"), false);
+		
+		//test casi limite
+		Assert.assertEquals(ServiziGenerici.isString(""), true);
+		Assert.assertEquals(ServiziGenerici.isString("\n"), true);
 
 	}
 	
+	/*
+	 * 
+	 */
+	@Test
+	public void testIsNumber()
+	{
+		//test base
+		Assert.assertEquals(ServiziGenerici.isNumber("Hello World!"), false);
+		Assert.assertEquals(ServiziGenerici.isNumber("2"), true);
+		Assert.assertEquals(ServiziGenerici.isNumber("-678"), true);
+		Assert.assertEquals(ServiziGenerici.isNumber("+5.19"), true);
+		
+		//test casi limite
+		Assert.assertEquals(ServiziGenerici.isNumber(intMax), true);
+		Assert.assertEquals(ServiziGenerici.isNumber(intMin), true);
+		Assert.assertEquals(ServiziGenerici.isNumber(intMin + "." + intMax), true);
+
+	}
+	
+	/*
+	 * 
+	 */
 	@Test
 	public void testWhatIs()
 	{
-		Assert.assertEquals(true, true);
-
+		Assert.assertEquals(ServiziGenerici.whatIs("k"), "string");
+		Assert.assertEquals(ServiziGenerici.whatIs(" "), "string");
+		Assert.assertEquals(ServiziGenerici.whatIs(".5"), "decimal");
+		Assert.assertEquals(ServiziGenerici.whatIs("+120"), "int");
 	}
 	
 	
