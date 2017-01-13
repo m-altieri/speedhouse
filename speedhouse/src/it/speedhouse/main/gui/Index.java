@@ -15,9 +15,7 @@ public class Index extends Finestra implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	
 	private JLabel databaseNonSelezionato;
-	
-	private boolean databaseSelezionato; //l'utente deve selezionare un db. all'inizio questa variabile è false.
-	
+		
 	public BarraMenu getBarraMenu()
 	{
 		return barraMenu;
@@ -33,7 +31,6 @@ public class Index extends Finestra implements ActionListener {
 		databaseNonSelezionato = new JLabel("Non hai ancora selezionato un database...");
 		this.add(databaseNonSelezionato, BorderLayout.CENTER);
 		
-		databaseSelezionato = false;
 		try {
 			barraMenu.getMenuFunzioni().forzaSelezioneDB();
 		} catch (FileNotFoundException e) {

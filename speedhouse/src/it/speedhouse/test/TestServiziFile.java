@@ -5,6 +5,7 @@ import org.junit.*;
 import it.speedhouse.main.statics.ServiziFile;
 import junit.framework.Assert;
 
+@SuppressWarnings({ "unused", "deprecation" })
 public class TestServiziFile {
 
 	@Before

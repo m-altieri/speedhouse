@@ -1,8 +1,6 @@
 package it.speedhouse.main.gui;
 
 import java.awt.event.ActionListener;
-
-import javax.swing.Action;
 import javax.swing.JMenuBar;
 
 public class BarraMenu extends JMenuBar {
@@ -13,7 +11,6 @@ public class BarraMenu extends JMenuBar {
 	private static final long serialVersionUID = 1L;
 
 	private MenuFunzioni menuFunzioni;
-	private MenuDatabase menuDatabase;
 	private ActionListener asc;
 	
 	public BarraMenu(ActionListener f)
@@ -24,10 +21,7 @@ public class BarraMenu extends JMenuBar {
 		
 		menuFunzioni = new MenuFunzioni(asc);
 		this.add(menuFunzioni);
-		menuFunzioni.setActionCommand("menuFunzioni");
-		
-		menuDatabase = new MenuDatabase(asc);
-		
+		menuFunzioni.setActionCommand("menuFunzioni");		
 		
 	}
 	
@@ -35,9 +29,5 @@ public class BarraMenu extends JMenuBar {
 	{
 		return menuFunzioni;
 	}
-	
-	public MenuDatabase getMenuDatabase()
-	{
-		return menuDatabase;
-	}
+
 }

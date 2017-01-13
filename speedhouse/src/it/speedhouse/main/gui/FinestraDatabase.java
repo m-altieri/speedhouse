@@ -23,13 +23,17 @@ import it.speedhouse.main.statics.ServiziFile;
 
 public class FinestraDatabase extends Finestra implements ActionListener, FocusListener {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private static final int SELEZIONATORE_WIDTH = 300;
 	private static final int SELEZIONATORE_HEIGHT = 40;
 	
 	private String nomeDb;
 	private JComboBox<String> selezionatore;
 	private JLabel lblSeleziona;
-	private JButton cmbSeleziona;
+	private JButton cmbVisualizza;
 	private JPanel pannelloSuperiore;
 	private JLabel caricamento;
 	
@@ -53,16 +57,16 @@ public class FinestraDatabase extends Finestra implements ActionListener, FocusL
 		lblSeleziona = new JLabel("Seleziona tabella");
 		selezionatore = new JComboBox<String>();
 		selezionatore.setPreferredSize(new Dimension(SELEZIONATORE_WIDTH, SELEZIONATORE_HEIGHT));
-		cmbSeleziona = new JButton("Visualizza");
-		cmbSeleziona.setActionCommand("cmbSeleziona");
-		cmbSeleziona.addActionListener(this);
+		cmbVisualizza = new JButton("Visualizza");
+		cmbVisualizza.setActionCommand("cmbVisualizza");
+		cmbVisualizza.addActionListener(this);
 		selezionatore.addFocusListener(this);
 		
 		pannelloSuperiore = new JPanel();
 		pannelloSuperiore.setLayout(new FlowLayout());
 		pannelloSuperiore.add(lblSeleziona);
 		pannelloSuperiore.add(selezionatore);
-		pannelloSuperiore.add(cmbSeleziona);
+		pannelloSuperiore.add(cmbVisualizza);
 		pannelloSuperiore.add(caricamento);
 		
 		this.add(pannelloSuperiore, BorderLayout.NORTH);
@@ -88,7 +92,7 @@ public class FinestraDatabase extends Finestra implements ActionListener, FocusL
 				aggiornato = false;
 				caricamento.setVisible(true);
 				lblSeleziona.setEnabled(false);
-				cmbSeleziona.setEnabled(false);
+				cmbVisualizza.setEnabled(false);
 				selezionatore.setEnabled(false);
 				this.update(getGraphics());
 				try {
@@ -101,7 +105,7 @@ public class FinestraDatabase extends Finestra implements ActionListener, FocusL
 	
 				caricamento.setVisible(false);
 				lblSeleziona.setEnabled(true);
-				cmbSeleziona.setEnabled(true);
+				cmbVisualizza.setEnabled(true);
 				selezionatore.setEnabled(true);
 				this.update(getGraphics());
 			}
@@ -113,6 +117,9 @@ public class FinestraDatabase extends Finestra implements ActionListener, FocusL
 			dispose();
 			break;
 		case "produciGrafici":
+			dispose();
+			break;
+		case "cmbVisualizza":
 			dispose();
 			break;
 		default: 
@@ -130,13 +137,12 @@ public class FinestraDatabase extends Finestra implements ActionListener, FocusL
 		
 		try {
 			barraMenu.getMenuFunzioni().aggiornaDB();
-		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+		} catch (FileNotFoundException f) {
+			f.printStackTrace();
 		}
 		caricamento.setVisible(true);
 		lblSeleziona.setEnabled(false);
-		cmbSeleziona.setEnabled(false);
+		cmbVisualizza.setEnabled(false);
 		selezionatore.setEnabled(false);
 		this.update(getGraphics());
 
@@ -150,7 +156,7 @@ public class FinestraDatabase extends Finestra implements ActionListener, FocusL
 		
 		caricamento.setVisible(false);
 		lblSeleziona.setEnabled(true);
-		cmbSeleziona.setEnabled(true);
+		cmbVisualizza.setEnabled(true);
 		selezionatore.setEnabled(true);
 		this.update(getGraphics());
 	}
