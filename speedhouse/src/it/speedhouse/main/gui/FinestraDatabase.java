@@ -35,7 +35,6 @@ public class FinestraDatabase extends Finestra implements ActionListener, FocusL
 	private JLabel lblSeleziona;
 	private JButton cmbVisualizza;
 	private JPanel pannelloSuperiore;
-	private JLabel caricamento;
 	
 	private boolean aggiornato;
 	
@@ -51,8 +50,8 @@ public class FinestraDatabase extends Finestra implements ActionListener, FocusL
 		this.barraMenu = new BarraMenu(this);
 		this.setJMenuBar(barraMenu);
 		
-		caricamento = new JLabel("     Caricamento...");
-		caricamento.setFont(new Font("Default", Font.PLAIN, 22));
+		this.impostaStato("Pronto");
+		this.update(getGraphics());
 		
 		lblSeleziona = new JLabel("Seleziona tabella");
 		selezionatore = new JComboBox<String>();
@@ -67,7 +66,6 @@ public class FinestraDatabase extends Finestra implements ActionListener, FocusL
 		pannelloSuperiore.add(lblSeleziona);
 		pannelloSuperiore.add(selezionatore);
 		pannelloSuperiore.add(cmbVisualizza);
-		pannelloSuperiore.add(caricamento);
 		
 		this.add(pannelloSuperiore, BorderLayout.NORTH);
 		
@@ -90,34 +88,41 @@ public class FinestraDatabase extends Finestra implements ActionListener, FocusL
 			if (file != null) {
 
 				aggiornato = false;
-				caricamento.setVisible(true);
+				this.impostaStato("Importazione csv...");
+				this.update(getGraphics());
 				lblSeleziona.setEnabled(false);
 				cmbVisualizza.setEnabled(false);
 				selezionatore.setEnabled(false);
+				this.barraMenu.setEnabled(false);
 				this.update(getGraphics());
 				try {
+					this.impostaStato("Creazione tabella...");
+					this.update(getGraphics());
 					//usa come nome della tabella il nome del csv ma senza le ultime 4 lettere (.csv)
 					ServiziDB.creaTabella(this.nomeDb, ServiziFile.estraiTipi(file), file.getName().substring(0, file.getName().length() - 4), ServiziFile.estraiColonne(file));
+					this.impostaStato("Inserimento dati...");
+					this.update(getGraphics());
 					ServiziDB.inserisciDati(this.nomeDb, file.getName().substring(0, file.getName().length() - 4), ServiziFile.estraiRighe(file));
 				} catch (FileNotFoundException e1) {
 					e1.printStackTrace();
 				}
 	
-				caricamento.setVisible(false);
+				this.impostaStato("Pronto");
+				this.update(getGraphics());
 				lblSeleziona.setEnabled(true);
 				cmbVisualizza.setEnabled(true);
 				selezionatore.setEnabled(true);
+				this.barraMenu.setEnabled(true);
 				this.update(getGraphics());
 			}
 			break;
 		case "creaDatabase":
 			new CreaDatabase(this);
 			break;
-		case "selezionaDatabase":
-			dispose();
-			break;
 		case "produciGrafici":
 			dispose();
+			FinestraGrafici fg = new FinestraGrafici(nomeDb, selezionatore.getSelectedItem().toString());
+			fg.setVisible(true);
 			break;
 		case "cmbVisualizza":
 			dispose();
@@ -134,30 +139,38 @@ public class FinestraDatabase extends Finestra implements ActionListener, FocusL
 			
 		if (aggiornato)
 			return;
-		
+		impostaStato("Aggiornamento elenco database...");
+		this.update(getGraphics());
 		try {
 			barraMenu.getMenuFunzioni().aggiornaDB();
 		} catch (FileNotFoundException f) {
 			f.printStackTrace();
 		}
-		caricamento.setVisible(true);
+		impostaStato("Pronto");
+		this.update(getGraphics());
 		lblSeleziona.setEnabled(false);
 		cmbVisualizza.setEnabled(false);
 		selezionatore.setEnabled(false);
+		this.barraMenu.setEnabled(false);
 		this.update(getGraphics());
 
 		System.out.println("debug");
+		impostaStato("Ottenimento tabelle dal database...");
+		this.update(getGraphics());
 		ArrayList<String> tabelle = ServiziDB.ottieniTabelle(this.nomeDb);
+		
+		impostaStato("Pronto");
+		this.update(getGraphics());
 		selezionatore.removeAllItems();
 		for (String t : tabelle) {
 			selezionatore.addItem(t);
 		}
 		aggiornato = true;
 		
-		caricamento.setVisible(false);
 		lblSeleziona.setEnabled(true);
 		cmbVisualizza.setEnabled(true);
 		selezionatore.setEnabled(true);
+		this.barraMenu.setEnabled(true);
 		this.update(getGraphics());
 	}
 

@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class ServiziFile {
+public abstract class ServiziFile {
 
 	public static ArrayList<String[]> estraiRighe(File file) throws FileNotFoundException
 	{

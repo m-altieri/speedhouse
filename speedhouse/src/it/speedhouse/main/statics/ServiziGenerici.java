@@ -1,6 +1,6 @@
 package it.speedhouse.main.statics;
 
-public class ServiziGenerici {
+public abstract class ServiziGenerici {
 
 	/**
 	 * Determina se la stringa passata rappresenta un intero.

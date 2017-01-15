@@ -1,7 +1,7 @@
 package it.speedhouse.main.gui;
 
-import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.PrintWriter;
 
 public class Main {
@@ -20,7 +20,7 @@ public class Main {
 	{
 		PrintWriter pw;
 		try {
-			pw = new PrintWriter(new File("databases.txt"));
+			pw = new PrintWriter(new FileOutputStream("databases.txt", true));
 			pw.close();
 		} catch (FileNotFoundException e1) {
 			// TODO Auto-generated catch block

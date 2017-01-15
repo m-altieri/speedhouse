@@ -73,7 +73,6 @@ public class CreaDatabase extends JFrame implements ActionListener {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			mf.sbloccaImportazione();
 			dispose();
 			break;
 		default:
