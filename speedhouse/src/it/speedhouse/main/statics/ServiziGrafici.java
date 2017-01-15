@@ -20,27 +20,24 @@ import org.jfree.ui.RefineryUtilities;
 
 public abstract class ServiziGrafici {
 
-	public static void creaIstogramma(String nomeGrafico, String sottotitolo, String[] colonne) {
+	public static void creaIstogramma(String nomeGrafico, String sottotitolo, ArrayList<String> colonne, ArrayList<String[]> dati) {
 		
-		JFrame frame = new JFrame("Grafico referendum");
+		JFrame frame = new JFrame("speedhouse - " + nomeGrafico);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		DefaultCategoryDataset d = new DefaultCategoryDataset();
 		
-		ArrayList<String[]> dati = ServiziDB.selezionaColonne("nomeDb", "mkmk_referendum_mod", colonne); //modificare
-		//TODO
 		for (int i = 0; i < dati.size(); i++) {
-			for (int j = 1; j < colonne.length; j++) {
-				d.addValue(Integer.parseInt(dati.get(i)[j]), dati.get(i)[0], colonne[j]);
-
+			for (int j = 1; j < colonne.size(); j++) {
+				d.addValue(Integer.parseInt(dati.get(i)[j]), dati.get(i)[0], colonne.get(j));
 			}
 		}
 
 		CategoryDataset dataset = d;
 
-		JFreeChart chart = ChartFactory.createBarChart("Analisi referendum",
+		JFreeChart chart = ChartFactory.createBarChart(nomeGrafico,
 				"Sezioni" /* x-axis label */, "Voti" /* y-axis label */, dataset);
-		chart.addSubtitle(new TextTitle("Sezione - Maschi - Femmine"));
+		chart.addSubtitle(new TextTitle(sottotitolo));
 		chart.setBackgroundPaint(Color.GREEN);
 		CategoryPlot plot = (CategoryPlot) chart.getPlot();
 

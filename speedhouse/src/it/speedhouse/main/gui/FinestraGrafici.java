@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import it.speedhouse.main.statics.ServiziDB;
+import it.speedhouse.main.statics.ServiziGrafici;
 
 public class FinestraGrafici extends Finestra implements ActionListener {
 
@@ -35,6 +36,7 @@ public class FinestraGrafici extends Finestra implements ActionListener {
 	private JCheckBox[] cb;
 	private JPanel checkboxGroup;
 	private ArrayList<String> colonne;
+	private ArrayList<String> colonneSelezionate;
 	private int nColonne;
 	private JPanel grafici;
 	
@@ -70,16 +72,22 @@ public class FinestraGrafici extends Finestra implements ActionListener {
 		
 		this.nColonne = ServiziDB.getNumeroColonne(this.database, this.tabella);
 		cb = new JCheckBox[nColonne];
-		colonne = ServiziDB.estraiColonne(this.database, this.tabella);
 		this.impostaStato("Pronto");
 		
 		checkboxGroup = new JPanel();
 		checkboxGroup.setLayout(new FlowLayout());
 		
+		colonne = ServiziDB.estraiColonne(database, tabella);
+		
 		for (int i = 0; i < nColonne; i++) {
 			cb[i] = new JCheckBox(colonne.get(i), false);
+			cb[i].addActionListener(this);
+			cb[i].setActionCommand(cb[i].getText());
 			checkboxGroup.add(cb[i]);
 		}
+		
+		colonneSelezionate = new ArrayList<String>();
+		
 		
 		center.add(checkboxGroup, BorderLayout.NORTH);
 		
@@ -114,11 +122,23 @@ public class FinestraGrafici extends Finestra implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		switch (e.getActionCommand()) {
 		case "Istogramma":
-			
+			this.impostaStato("Creazione grafico in corso...");
+			this.paintAll(getGraphics());
+			ServiziGrafici.creaIstogramma("test", "testino", colonneSelezionate, ServiziDB.selezionaColonne(database, tabella, colonneSelezionate));
+			this.impostaStato("Pronto");
+			this.paintAll(getGraphics());
 			break;
 		case "Torta":
 			break;
 		default:
+			for (int i = 0; i < cb.length; i++) {
+				if (e.getActionCommand().equals(cb[i].getActionCommand())) {
+					if (cb[i].isSelected())
+						this.colonneSelezionate.add(cb[i].getText());
+					else
+						this.colonneSelezionate.remove(cb[i]);
+				}
+			}
 			break;
 		}
 	}

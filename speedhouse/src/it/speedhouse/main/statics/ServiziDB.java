@@ -271,7 +271,7 @@ public abstract class ServiziDB {
 		   System.out.println("Goodbye!");
 	}
 	
-	public static ArrayList<String[]> selezionaColonne(String nomeDb, String nomeTabella, String[] colonne)
+	public static ArrayList<String[]> selezionaColonne(String nomeDb, String nomeTabella, ArrayList<String> colonne)
 	{
 		Connection conn = null;
 		Statement stmt = null;
@@ -289,21 +289,21 @@ public abstract class ServiziDB {
 			sql = "use marcomassiema;";
 			sql2 = "SELECT ";
 			
-			for (int i = 0; i < colonne.length; i++) {
-				sql2 += colonne[i];
-				if (colonne.length - i > 1)
+			for (int i = 0; i < colonne.size(); i++) {
+				sql2 += colonne.get(i);
+				if (colonne.size() - i > 1)
 					sql2 += ", ";
 			}
 			
-			sql2 += " FROM " + nomeTabella + ";";
-
+			sql2 += " FROM " + nomeDb + "_" + nomeTabella + ";";
+			System.out.println(sql2);
 			stmt.execute(sql);
 			rs = stmt.executeQuery(sql2);
 
 			while (!rs.isLast()) {
 				rs.next();
-				String[] riga = new String[colonne.length];
-				for (int i = 1; i <= colonne.length; i++) {
+				String[] riga = new String[colonne.size()];
+				for (int i = 1; i <= colonne.size(); i++) {
 					riga[i-1] = rs.getString(i);
 				}
 				ret.add(riga);
@@ -395,5 +395,54 @@ public abstract class ServiziDB {
 		}
 		
 		return colonne;
+	}
+	
+	/**
+	 * 
+	 * @param nomeDb
+	 * @param nomeTabella
+	 * @param index - L'indice della colonna di cui estrarre il nome. La prima colonna ha indice 1.
+	 * @return
+	 */
+	public static String getColonna(String nomeDb, String nomeTabella, int index)
+	{
+		
+		Connection conn = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		String ret = "";
+		
+		try {
+			
+			Class.forName("com.mysql.jdbc.Driver");
+			conn = DriverManager.getConnection("jdbc:mysql://db4free.net:3306", "marcomassiema", "marcomassiema");
+
+			stmt = conn.createStatement();
+
+			String sql, sql2;
+			sql = "use marcomassiema;";
+			sql2 = "SHOW COLUMNS FROM " + nomeDb + "_" + nomeTabella;
+			
+			stmt.execute(sql);
+			rs = stmt.executeQuery(sql2);
+
+			int count = 0;
+			while (!rs.isLast()) {
+				rs.next();
+				count++;
+				if (count == index)
+				ret = rs.getString(1);
+			}
+
+			stmt.close();
+			conn.close();
+			
+		} catch (SQLException jdbcProblem) {
+			jdbcProblem.printStackTrace();
+		} catch (Exception forNameProblem) {
+			forNameProblem.printStackTrace();
+		}
+		
+		return ret;
 	}
 }
