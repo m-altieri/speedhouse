@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class ServiziDB {
+public abstract class ServiziDB {
 
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
 	static final String DB_URL = "jdbc:mysql://db4free.net:3306";
@@ -91,10 +91,12 @@ public class ServiziDB {
 	      
 	      while (rs.next()) {
 	    	  String tabella = rs.getString(1);
-	    	  String[] db = tabella.split("_");
-	    	  System.out.println(db[0]);
-	    	  if (db[0].equals(nomeDb)) {
-	    		  tabelle.add(db[1]);
+	    	  String db = "";
+	    	  if (tabella.contains("_")) {
+	    		  db = tabella.substring(0, tabella.indexOf("_")); //DEBUG//
+	    		  tabella = tabella.substring(tabella.indexOf("_") + 1);
+	    		  if (db.equals(nomeDb))
+	    			  tabelle.add(tabella);
 	    	  }
 	      }
 
@@ -269,8 +271,178 @@ public class ServiziDB {
 		   System.out.println("Goodbye!");
 	}
 	
-	public static void main(String[] args)
+	public static ArrayList<String[]> selezionaColonne(String nomeDb, String nomeTabella, ArrayList<String> colonne)
+	{
+		Connection conn = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		ArrayList<String[]> ret = new ArrayList<String[]>();
+		
+		try {
+			
+			Class.forName("com.mysql.jdbc.Driver");
+			conn = DriverManager.getConnection("jdbc:mysql://db4free.net:3306", "marcomassiema", "marcomassiema");
+
+			stmt = conn.createStatement();
+
+			String sql, sql2;
+			sql = "use marcomassiema;";
+			sql2 = "SELECT ";
+			
+			for (int i = 0; i < colonne.size(); i++) {
+				sql2 += colonne.get(i);
+				if (colonne.size() - i > 1)
+					sql2 += ", ";
+			}
+			
+			sql2 += " FROM " + nomeDb + "_" + nomeTabella + ";";
+			System.out.println(sql2);
+			stmt.execute(sql);
+			rs = stmt.executeQuery(sql2);
+
+			while (!rs.isLast()) {
+				rs.next();
+				String[] riga = new String[colonne.size()];
+				for (int i = 1; i <= colonne.size(); i++) {
+					riga[i-1] = rs.getString(i);
+				}
+				ret.add(riga);
+			}
+
+			stmt.close();
+			conn.close();
+			
+		} catch (SQLException jdbcProblem) {
+			jdbcProblem.printStackTrace();
+		} catch (Exception forNameProblem) {
+			forNameProblem.printStackTrace();
+		}
+		
+		return ret;
+	}
+	
+	public static int getNumeroColonne(String database, String tabella)
+	{
+		Connection conn = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		int nColonne = 0;
+		
+		try {
+			
+			Class.forName("com.mysql.jdbc.Driver");
+			conn = DriverManager.getConnection("jdbc:mysql://db4free.net:3306", "marcomassiema", "marcomassiema");
+
+			stmt = conn.createStatement();
+
+			String sql, sql2;
+			sql = "use marcomassiema;";
+			sql2 = "SHOW COLUMNS FROM " + database + "_" + tabella;
+			
+			stmt.execute(sql);
+			rs = stmt.executeQuery(sql2);
+
+			while (!rs.isLast()) {
+				rs.next();
+				nColonne++;
+			}
+
+			stmt.close();
+			conn.close();
+			
+		} catch (SQLException jdbcProblem) {
+			jdbcProblem.printStackTrace();
+		} catch (Exception forNameProblem) {
+			forNameProblem.printStackTrace();
+		}
+		
+		return nColonne;
+	}
+	
+	public static ArrayList<String> estraiColonne(String database, String tabella)
+	{
+		Connection conn = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		ArrayList<String> colonne = new ArrayList<String>();
+		
+		try {
+			
+			Class.forName("com.mysql.jdbc.Driver");
+			conn = DriverManager.getConnection("jdbc:mysql://db4free.net:3306", "marcomassiema", "marcomassiema");
+
+			stmt = conn.createStatement();
+
+			String sql, sql2;
+			sql = "use marcomassiema;";
+			sql2 = "SHOW COLUMNS FROM " + database + "_" + tabella;
+			
+			stmt.execute(sql);
+			rs = stmt.executeQuery(sql2);
+
+			while (!rs.isLast()) {
+				rs.next();
+				colonne.add(rs.getString(1));
+			}
+
+			stmt.close();
+			conn.close();
+			
+		} catch (SQLException jdbcProblem) {
+			jdbcProblem.printStackTrace();
+		} catch (Exception forNameProblem) {
+			forNameProblem.printStackTrace();
+		}
+		
+		return colonne;
+	}
+	
+	/**
+	 * 
+	 * @param nomeDb
+	 * @param nomeTabella
+	 * @param index - L'indice della colonna di cui estrarre il nome. La prima colonna ha indice 1.
+	 * @return
+	 */
+	public static String getColonna(String nomeDb, String nomeTabella, int index)
 	{
 		
+		Connection conn = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		String ret = "";
+		
+		try {
+			
+			Class.forName("com.mysql.jdbc.Driver");
+			conn = DriverManager.getConnection("jdbc:mysql://db4free.net:3306", "marcomassiema", "marcomassiema");
+
+			stmt = conn.createStatement();
+
+			String sql, sql2;
+			sql = "use marcomassiema;";
+			sql2 = "SHOW COLUMNS FROM " + nomeDb + "_" + nomeTabella;
+			
+			stmt.execute(sql);
+			rs = stmt.executeQuery(sql2);
+
+			int count = 0;
+			while (!rs.isLast()) {
+				rs.next();
+				count++;
+				if (count == index)
+				ret = rs.getString(1);
+			}
+
+			stmt.close();
+			conn.close();
+			
+		} catch (SQLException jdbcProblem) {
+			jdbcProblem.printStackTrace();
+		} catch (Exception forNameProblem) {
+			forNameProblem.printStackTrace();
+		}
+		
+		return ret;
 	}
 }

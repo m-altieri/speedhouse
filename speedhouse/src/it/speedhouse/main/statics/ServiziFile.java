@@ -5,9 +5,9 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class ServiziFile {
-	
-	
+
+public abstract class ServiziFile {
+
 	public static ArrayList<String[]> estraiRighe(File file) throws FileNotFoundException
 	{
 		ArrayList<String[]> righe = new ArrayList<String[]>();
@@ -34,13 +34,13 @@ public class ServiziFile {
 		
 		for (int i = 0; i < tipi.length; i++)
 		{
-			if (tipi[i].matches("[-+]?\\d+")) { // se è intero
+			if (tipi[i].matches("[-+]?\\d+")) { // se Ã¨ intero
 				tipi[i] = "int";
 			}
-			else if (tipi[i].matches("[-+]?\\d*\\.?\\d+")) { // se è decimale
+			else if (tipi[i].matches("[-+]?\\d*\\.?\\d+")) { // se Ã¨ decimale
 				tipi[i] = "decimal";
 			}
-			else // se è stringa
+			else // se Ã¨ stringa
 				tipi[i] = "string";
 		}
 		

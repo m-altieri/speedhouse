@@ -24,6 +24,7 @@ public class Index extends Finestra implements ActionListener {
 	{
 		super();
 		
+		impostaStato("Pronto");
 		barraMenu = new BarraMenu(this);
 		this.setJMenuBar(barraMenu);
 		
