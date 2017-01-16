@@ -3,7 +3,6 @@ package it.speedhouse.main.gui;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
@@ -21,12 +20,15 @@ import javax.swing.JPanel;
 import it.speedhouse.main.statics.ServiziDB;
 import it.speedhouse.main.statics.ServiziFile;
 
+/**
+ * Finestra dalla quale è possibile importare file, selezionare tra le tabelle inserite, produrre grafici.
+ * E' una delle finestre principali.
+ * @author Altieri Massimiliano
+ */
 public class FinestraDatabase extends Finestra implements ActionListener, FocusListener {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+	
 	private static final int SELEZIONATORE_WIDTH = 300;
 	private static final int SELEZIONATORE_HEIGHT = 40;
 	
@@ -40,6 +42,10 @@ public class FinestraDatabase extends Finestra implements ActionListener, FocusL
 	
 	private JFileChooser fc;
 	
+	/**
+	 * Crea la finestra, con tutti i suoi componenti, e la visualizza.
+	 * @param nomeDb	Nome del database al quale si è acceduti.
+	 */
 	public FinestraDatabase(String nomeDb)
 	{
 		super();
@@ -71,22 +77,31 @@ public class FinestraDatabase extends Finestra implements ActionListener, FocusL
 		
 	}
 	
+	/**
+	 * Metodo get per ottenere il nome semplice del database attualmente utilizzato.
+	 * @return Il nome del database al quale si è acceduti.
+	 */
 	public String getNomeDb()
 	{
 		return nomeDb;
 	}
 
+	/**
+	 * Gestore degli eventi.
+	 * @param e	Evento scatenato. Può essere una qualsiasi operazione effettuabile da questa finestra.
+	 */
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		
-		switch (e.getActionCommand()) {
+	public void actionPerformed(ActionEvent e)
+	{
+		switch (e.getActionCommand())
+		{
 		case "importaCsv":
 			fc = new JFileChooser();
 			fc.showOpenDialog(null);
 			File file = fc.getSelectedFile();
 			
 			if (file != null) {
-
+				
 				aggiornato = false;
 				this.impostaStato("Importazione csv...");
 				this.update(getGraphics());
@@ -94,26 +109,27 @@ public class FinestraDatabase extends Finestra implements ActionListener, FocusL
 				cmbVisualizza.setEnabled(false);
 				selezionatore.setEnabled(false);
 				this.barraMenu.setEnabled(false);
-				this.update(getGraphics());
+				this.paintAll(getGraphics());
+				
 				try {
 					this.impostaStato("Creazione tabella...");
-					this.update(getGraphics());
-					//usa come nome della tabella il nome del csv ma senza le ultime 4 lettere (.csv)
+					this.paintAll(getGraphics());
+					// Usa come nome della tabella il nome del csv ma senza le ultime 4 lettere (.csv)
 					ServiziDB.creaTabella(this.nomeDb, ServiziFile.estraiTipi(file), file.getName().substring(0, file.getName().length() - 4), ServiziFile.estraiColonne(file));
 					this.impostaStato("Inserimento dati...");
-					this.update(getGraphics());
+					this.paintAll(getGraphics());
 					ServiziDB.inserisciDati(this.nomeDb, file.getName().substring(0, file.getName().length() - 4), ServiziFile.estraiRighe(file));
-				} catch (FileNotFoundException e1) {
-					e1.printStackTrace();
+				} catch (FileNotFoundException f) {
+					f.printStackTrace();
 				}
 	
 				this.impostaStato("Pronto");
-				this.update(getGraphics());
+				this.paintAll(getGraphics());
 				lblSeleziona.setEnabled(true);
 				cmbVisualizza.setEnabled(true);
 				selezionatore.setEnabled(true);
 				this.barraMenu.setEnabled(true);
-				this.update(getGraphics());
+				this.paintAll(getGraphics());
 			}
 			break;
 		case "creaDatabase":

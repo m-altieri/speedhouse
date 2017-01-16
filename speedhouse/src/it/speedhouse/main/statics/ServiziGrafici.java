@@ -58,4 +58,9 @@ public abstract class ServiziGrafici {
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		frame.setVisible(true);
 	}
+	
+	public static void creaTorta(String nomeGrafico, String sottotitolo, ArrayList<String> colonne, ArrayList<String[]> dati)
+	{
+		//TODO
+	}
 }

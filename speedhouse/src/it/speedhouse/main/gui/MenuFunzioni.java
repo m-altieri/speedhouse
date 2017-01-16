@@ -37,7 +37,7 @@ public class MenuFunzioni extends JMenu {
 		importaCsv.setText("Importa file csv...");
 		importaCsv.setActionCommand("importaCsv");
 		creaDatabase = new JMenuItem();
-		creaDatabase.setText("Crea database");
+		creaDatabase.setText("Crea database...");
 		creaDatabase.setActionCommand("creaDatabase");
 		selezionaDatabase = new JMenu();
 		selezionaDatabase.setText("Seleziona database");

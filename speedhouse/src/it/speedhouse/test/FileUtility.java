@@ -1,8 +1,6 @@
 package it.speedhouse.test;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 abstract class FileUtility {
 
