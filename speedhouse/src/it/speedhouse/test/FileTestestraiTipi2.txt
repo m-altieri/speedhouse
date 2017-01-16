@@ -1,0 +1,2 @@
+"colonna1";"colonna2";"colonna3";"colonna4";"colonna5";
+"12.90";"2";"90.98878";"9";"8"

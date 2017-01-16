@@ -118,7 +118,9 @@ public class TestServiziGenerici {
 	}
 	
 	/*
-	 * 
+	 * Testing del metodo isNumber appartenente alla classe ServiziGenerici del package it.speedhouse.main.statics.
+	 * Precondizione: Deve essere passata una variabile di tipo stringa.
+	 * Il metodo restituisce true se la variabile contiene un numero intero o decimale, mentre nel caso contrario restituisce false.
 	 */
 	@Test
 	public void testIsNumber()
@@ -150,3 +152,6 @@ public class TestServiziGenerici {
 	
 	
 }
+
+
+// da rivedere i commenti dei test perchè sono uguali a quelli dei metodi

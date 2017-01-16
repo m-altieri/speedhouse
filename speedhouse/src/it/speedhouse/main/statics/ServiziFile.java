@@ -6,19 +6,21 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ServiziFile {
-
+	
+	
 	public static ArrayList<String[]> estraiRighe(File file) throws FileNotFoundException
 	{
 		ArrayList<String[]> righe = new ArrayList<String[]>();
 		
 		Scanner s = new Scanner(file);
+
 		s.nextLine(); //skippa la prima riga
 		while (s.hasNextLine()) {
 			righe.add(s.nextLine().replaceAll("\"", "").split(";"));
 		}
-		
+	
 		s.close();
-		
+	
 		return righe;
 	}
 	
