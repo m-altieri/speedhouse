@@ -51,12 +51,12 @@ public abstract class ServiziFile {
 	
 	public static String[] estraiColonne(File file) throws FileNotFoundException
 	{
-		String[] tipi;
+		String[] colonne;
 		
 		Scanner s = new Scanner(file);
-		tipi = s.nextLine().replaceAll("\"", "").split(";"); //togli le virgolette
+		colonne = s.nextLine().replaceAll("\"", "").split(";"); //togli le virgolette
 		s.close();
 		
-		return tipi;
+		return colonne;
 	}
 }
