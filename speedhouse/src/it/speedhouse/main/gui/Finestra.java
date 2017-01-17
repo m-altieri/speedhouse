@@ -3,6 +3,7 @@ package it.speedhouse.main.gui;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -14,7 +15,7 @@ import org.jfree.ui.RefineryUtilities;
  * Fornisce il template generale.
  * @author Altieri Massimiliano
  */
-public class Finestra extends JFrame {
+public abstract class Finestra extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	

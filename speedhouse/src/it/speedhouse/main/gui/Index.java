@@ -19,11 +19,6 @@ public class Index extends Finestra implements ActionListener {
 	private JTextArea help;
 	private Font helpFont;
 	
-	public BarraMenu getBarraMenu()
-	{
-		return barraMenu;
-	}
-	
 	public Index()
 	{
 		super();

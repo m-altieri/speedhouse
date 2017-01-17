@@ -125,6 +125,7 @@ public class FinestraGrafici extends Finestra implements ActionListener {
 			this.impostaStato("Creazione grafico in corso...");
 			this.paintAll(getGraphics());
 			ServiziGrafici.creaIstogramma("test", "testino", colonneSelezionate, ServiziDB.selezionaColonne(database, tabella, colonneSelezionate));
+			System.out.println(colonneSelezionate); //debug
 			this.impostaStato("Pronto");
 			this.paintAll(getGraphics());
 			break;
@@ -141,7 +142,7 @@ public class FinestraGrafici extends Finestra implements ActionListener {
 					if (cb[i].isSelected())
 						this.colonneSelezionate.add(cb[i].getText());
 					else
-						this.colonneSelezionate.remove(cb[i]);
+						this.colonneSelezionate.remove(cb[i].getText());
 				}
 			}
 			break;

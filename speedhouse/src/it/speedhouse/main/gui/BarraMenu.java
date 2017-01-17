@@ -14,14 +14,14 @@ public class BarraMenu extends JMenuBar {
 	private static final long serialVersionUID = 1L;
 
 	private MenuFunzioni menuFunzioni;
-	private ActionListener asc;
+	private Finestra asc;
 	
 	/**
 	 * Crea una BarraMenu, già riempita di tutti i menù e sottomenù prevista.
 	 * @param f	L'oggetto ActionListener che gestisce gli eventi scatenati dal menù, preferibilmente
 	 * la finestra contenitore di questo oggetto.
 	 */
-	public BarraMenu(ActionListener f)
+	public BarraMenu(Finestra f)
 	{
 		super();
 		
