@@ -32,7 +32,11 @@ public class TestSerrviziFile {
 	String [] tipi3;
 	File fw4;
 	File fw5;
+	
+	//utilizzati per i test estraiColonne
+	String [] colonne1;
 
+	
 	@Before
 	public void setUp() {
 		//utilizzati per i test estraiRighe
@@ -84,28 +88,16 @@ public class TestSerrviziFile {
 		tipi3[1] = "string";
 		tipi3[2] = "decimal";
 		
+		colonne1 = new String[3];
+		colonne1[0] = "nome";
+		colonne1[1] = "cognome";
+		colonne1[2] = "età";
 		
 	}
 	
 	@After
-	public void tearDown()
+	public void tearDown() 
 	{
-			/*righe = new ArrayList<String[]>();
-			Scanner p = null;
-			String[] riga;
-			try {
-				File fw = new File("C:/Users/Massi/git/speedhouse/speedhouse/src/it/speedhouse/test/FileProva");
-				p = new Scanner (fw);
-			} catch (Exception e) {}
-			p.nextLine(); // righe non deve contenere l'intestazione presente nella prima riga del file
-			while (p.hasNextLine()) {
-				riga = p.nextLine().split(";");
-				for (int i = 0; i < riga.length; i++) {
-					riga[i].replaceAll("\"", "");
-				}
-				righe.add(riga);
-			}
-				*/
 	}
 	
 	/**
@@ -117,15 +109,15 @@ public class TestSerrviziFile {
 	{	
 	
 			// test 1
-			Assert.assertEquals(FileUtility.equals(ServiziFile.estraiRighe(fw),righe), true);
-			Assert.assertEquals(FileUtility.equals(ServiziFile.estraiRighe(fw1),righe1), true);
+			Assert.assertEquals(Utility.equals(ServiziFile.estraiRighe(fw),righe), true);
+			Assert.assertEquals(Utility.equals(ServiziFile.estraiRighe(fw1),righe1), true);
 			
 			// test 2
-			Assert.assertEquals(FileUtility.equals(ServiziFile.estraiRighe(fw),righe1), false);
-			Assert.assertEquals(FileUtility.equals(ServiziFile.estraiRighe(fw1),righe), false);
+			Assert.assertEquals(Utility.equals(ServiziFile.estraiRighe(fw),righe1), false);
+			Assert.assertEquals(Utility.equals(ServiziFile.estraiRighe(fw1),righe), false);
 			
 			//test 3
-			Assert.assertEquals(FileUtility.equals(ServiziFile.estraiRighe(fw),righe2), false);
+			Assert.assertEquals(Utility.equals(ServiziFile.estraiRighe(fw),righe2), false);
 			
 		
 	}
@@ -137,22 +129,24 @@ public class TestSerrviziFile {
 	public void testEstraiTipi () throws FileNotFoundException
 	{	
 		
-			Assert.assertEquals(FileUtility.equals(ServiziFile.estraiTipi(fw),tipi),false);
-			Assert.assertEquals(FileUtility.equals(ServiziFile.estraiTipi(fw),tipi3),false);
-			Assert.assertEquals(FileUtility.equals(ServiziFile.estraiTipi(fw4),tipi),true);
-			Assert.assertEquals(FileUtility.equals(ServiziFile.estraiTipi(fw),tipi1),true);
-			Assert.assertEquals(FileUtility.equals(ServiziFile.estraiTipi(fw5),tipi2),true);
+			Assert.assertEquals(Utility.equals(ServiziFile.estraiTipi(fw),tipi),false);
+			Assert.assertEquals(Utility.equals(ServiziFile.estraiTipi(fw),tipi3),false);
+			Assert.assertEquals(Utility.equals(ServiziFile.estraiTipi(fw4),tipi),true);
+			Assert.assertEquals(Utility.equals(ServiziFile.estraiTipi(fw),tipi1),true);
+			Assert.assertEquals(Utility.equals(ServiziFile.estraiTipi(fw5),tipi2),true);
 			
 		
 		
 	}
 	
 	/**
+	 * @throws FileNotFoundException 
 	 * 
 	 */
 	@Test
-	public void testEstraiColonne()
+	public void testEstraiColonne() throws FileNotFoundException
 	{
-		
+				Assert.assertEquals(Utility.equals(ServiziFile.estraiColonne(fw),colonne1),true);
+				Assert.assertEquals(Utility.equals(ServiziFile.estraiColonne(fw5),colonne1),false);			
 	}
 }
