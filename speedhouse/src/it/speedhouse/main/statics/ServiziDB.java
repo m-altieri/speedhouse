@@ -11,36 +11,65 @@ public abstract class ServiziDB {
 
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
 	static final String DB_URL = "jdbc:mysql://db4free.net:3306";
-
 	static final String USER = "marcomassiema";
 	static final String PASS = "marcomassiema";
 
-
-	//test
+	/**
+	 * Esegue la query mysql "USE" per poter usare il database.
+	 * Deve essere eseguita prima di poter effettuare qualsiasi query su quel database.
+	 * @param conn Oggetto Connection contenente la connessione al database.
+	 */
+	private static void useDb(Connection conn)
+	{
+		Statement stmt = null;
+		
+		try {
+			stmt = conn.createStatement();
+			stmt.execute("USE " + USER);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Restituisce una connessione valida al database.
+	 * @return Un oggetto Connection contenente la connessione.
+	 */
+	private static Connection getConnection()
+	{
+		Connection conn = null;
+		
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			conn = DriverManager.getConnection(DB_URL, USER, PASS);
+		} catch (SQLException e) { // Errori del JDBC
+			e.printStackTrace();
+		} catch (Exception f) { // Errori di Class.forName
+			f.printStackTrace();
+		}
+		
+		return conn;
+	}
+	
+	/**
+	 * Ottieni i nomi delle tabelle presenti nel database passato come argomento.
+	 * @param nomeDb Il nome del database di cui ottenere i nomi delle tabelle create.
+	 * @return ArrayList di String contenente i nomi delle tabelle create.
+	 */
 	public static ArrayList<String> ottieniTabelle(String nomeDb)
 	{
 		ArrayList<String> tabelle = new ArrayList<String>();
 
-		Connection conn = null;
+		Connection conn = getConnection();
+		useDb(conn);
+		
 		Statement stmt = null;
-
-		try{
-			//STEP 2: Register JDBC driver
-			Class.forName("com.mysql.jdbc.Driver");
-
-			//STEP 3: Open a connection
-			System.out.println("Connecting to database...");
-			conn = DriverManager.getConnection(DB_URL,USER,PASS);
-
-			//STEP 4: Execute a query
-			System.out.println("Creating statement...");
+		
+		try {
 			stmt = conn.createStatement();
-			String sql, sql2;
-			sql = "use marcomassiema;";
-			sql2 = "show tables;";
+			String sql = "show tables;";
 
-			stmt.execute(sql);
-			ResultSet rs = stmt.executeQuery(sql2);
+			ResultSet rs = stmt.executeQuery(sql);
 
 			while (rs.next()) {
 				String tabella = rs.getString(1);
@@ -53,119 +82,100 @@ public abstract class ServiziDB {
 				}
 			}
 
-			//STEP 6: Clean-up environment
+			// Chiusura risorse
 			stmt.close();
 			conn.close();
-		}catch(SQLException se){
-			//Handle errors for JDBC
-			se.printStackTrace();
-		}catch(Exception e){
-			//Handle errors for Class.forName
+		} catch (SQLException e) {
+			// Errori del JDBC
 			e.printStackTrace();
-		}finally{
-			//finally block used to close resources
-			try{
-				if(stmt!=null)
-					stmt.close();
-			}catch(SQLException se2){
-			}// nothing we can do
-			try{
-				if(conn!=null)
-					conn.close();
-			}catch(SQLException se){
-				se.printStackTrace();
-			}//end finally try
-		}//end try
-		System.out.println("Goodbye!");
-
+		} catch(Exception f) {
+			// Errori di Class.forName
+			f.printStackTrace();
+		}
+		
 		return tabelle;
 	}
 
-
+	/**
+	 * Elimina la tabella scelta.
+	 * @param nomeDb Il nome del database contenente la tabella da eliminare.
+	 * @param nomeTabella Il nome della tabella da eliminare.
+	 */
 	public static void eliminaTabella(String nomeDb, String nomeTabella)
 	{
-		Connection conn = null;
+		Connection conn = getConnection();
+		useDb(conn);
+		
 		Statement stmt = null;
 
 		try{
-			Class.forName("com.mysql.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mysql://db4free.net:3306","marcomassiema","marcomassiema");
+			// Creazione e esecuzione query
+			String sql = "DROP TABLE " + nomeDb + "_" + nomeTabella + ";";
 			stmt = conn.createStatement();
-			String sql = "USE marcomassiema;";
-			String sql2 = "DROP TABLE " + nomeDb + "_" + nomeTabella + ";";
 			stmt.execute(sql);
-			stmt.execute(sql2);
+
+			// Chiusura risorse
 			stmt.close();
 			conn.close();
-		}catch(SQLException e){
+		} catch(SQLException e) {
+			// Errori del JDBC
 			e.printStackTrace();
-		}catch(Exception f){
+		} catch(Exception f) {
+			// Errori di Class.forName
 			f.printStackTrace();
 		}
 	}
 	
+	/**
+	 * Crea una tabella.
+	 * @param nomeDb Nome del database in cui creare la tabella.
+	 * @param tipi Array di stringhe contenente i tipi delle colonne da creare, in ordine. I tipi devono essere quelli della
+	 * sintassi di mysql e non di Java. Usare "decimal" per i numeri decimali e "varchar(100)" per le stringhe.
+	 * @param nomeTabella Il nome della tabella da creare.
+	 * @param colonne Array di stringhe contenente i nomi delle colonne da creare, in ordine.
+	 */
 	public static void creaTabella(String nomeDb, String[] tipi, String nomeTabella, String[] colonne)
 	{
-		Connection conn = null;
+		Connection conn = getConnection();
+		useDb(conn);
+		
 		Statement stmt = null;
 
-		try{
-			//STEP 2: Register JDBC driver
-			Class.forName("com.mysql.jdbc.Driver");
-
-			//STEP 3: Open a connection
-			System.out.println("Connecting to database...");
-			conn = DriverManager.getConnection(DB_URL,USER,PASS);
-
-			//STEP 4: Execute a query
-			System.out.println("Creating statement...");
+		try {
+			// Creazione query
 			stmt = conn.createStatement();
-			String sql, sql2;
-			sql = "use marcomassiema;";
-			sql2 = "CREATE TABLE " + nomeDb + "_" + nomeTabella + " (";
+			String sql = "CREATE TABLE " + nomeDb + "_" + nomeTabella + " (";
+			
 			for (int i = 0; i < tipi.length; i++) {
-				sql2 += colonne[i] + " ";
+				sql += colonne[i] + " ";
 
 				if (tipi[i].equals("string"))
-					sql2 += "varchar(100)";
+					sql += "varchar(100)";
 				else
-					sql2 += tipi[i];
+					sql += tipi[i];
 
 				if (tipi.length - i > 1)
-					sql2 += ", ";
+					sql += ", ";
 			}
-			sql2 += ");";
-			System.out.println(sql2);//
+			sql += ");";
+			
+			// Esecuzione query
 			stmt.execute(sql);
-			stmt.execute(sql2);
 
-			//STEP 6: Clean-up environment
+			// Chiusura risorse
 			stmt.close();
 			conn.close();
-		}catch(SQLException se){
-			//Handle errors for JDBC
-			se.printStackTrace();
-		}catch(Exception e){
-			//Handle errors for Class.forName
+		} catch (SQLException e) {
+			// Errori del JDBC
 			e.printStackTrace();
-		}finally{
-			//finally block used to close resources
-			try{
-				if(stmt!=null)
-					stmt.close();
-			}catch(SQLException se2){
-			}// nothing we can do
-			try{
-				if(conn!=null)
-					conn.close();
-			}catch(SQLException se){
-				se.printStackTrace();
-			}//end finally try
-		}//end try
-		System.out.println("Goodbye!");
+		}catch (Exception f) {
+			// Errori di Class.forName
+			f.printStackTrace();
+		}
 	}
 
 	/**
+	 * Inserisce dati in una tabella già creata.
 	 * Non effettua controlli sulla compatibilità tra tipo dei dati inseriti e tipi accettati dalle colonne della tabella.
 	 * @param nomeDb - Nome del database in cui inserire i dati
 	 * @param nomeTabella - Nome della tabella in cui inserire i dati
@@ -173,109 +183,91 @@ public abstract class ServiziDB {
 	 */
 	public static void inserisciDati(String nomeDb, String nomeTabella, ArrayList<String[]> righe)
 	{
-		Connection conn = null;
+		Connection conn = getConnection();
+		useDb(conn);
+		
 		Statement stmt = null;
 
 		try{
-			//STEP 2: Register JDBC driver
-			Class.forName("com.mysql.jdbc.Driver");
-
-			//STEP 3: Open a connection
-			System.out.println("Connecting to database...");
-			conn = DriverManager.getConnection(DB_URL,USER,PASS);
-
-			//STEP 4: Execute a query
-			System.out.println("Creating statement...");
+			// Creazione query
 			stmt = conn.createStatement();
-			String sql, sql2;
-			sql = "use marcomassiema;";
-			sql2 = "INSERT INTO " + nomeDb + "_" + nomeTabella + " VALUES ";
+			String sql = "INSERT INTO " + nomeDb + "_" + nomeTabella + " VALUES ";
 
 			for (int i = 0; i < righe.size(); i++) {
 
 				String[] tupla = righe.get(i);
-				sql2 += "(";
+				sql += "(";
 
 				for (int j = 0; j < tupla.length; j++) {
 
 					if (ServiziGenerici.isInteger(tupla[j]))
-						sql2 += tupla[j];
+						sql += tupla[j];
 					else if (ServiziGenerici.isDecimal(tupla[j]))
-						sql2 += tupla[j];
+						sql += tupla[j];
 					else if (tupla[j].equals(""))
-						sql2 += "null";
+						sql += "null";
 					else
-						sql2 += "\"" + tupla[j] + "\"";
+						sql += "\"" + tupla[j] + "\"";
 
 					if (tupla.length - j > 1)
-						sql2 += ", ";
+						sql += ", ";
 				}
 
-				sql2 += ")";
+				sql += ")";
 
 				if (righe.size() - i > 1)
-					sql2 += ", ";
+					sql += ", ";
 			}
-			sql2 += ";";
-			System.out.println(sql2);//
-			stmt.execute(sql);
-			stmt.execute(sql2);
+			sql += ";";
 
-			//STEP 6: Clean-up environment
+			// Esecuzione query
+			stmt.execute(sql);
+
+			// Chiusura risorse
 			stmt.close();
 			conn.close();
-		}catch(SQLException se){
-			//Handle errors for JDBC
-			se.printStackTrace();
-		}catch(Exception e){
-			//Handle errors for Class.forName
+		} catch(SQLException e) {
+			// Errori del JDBC
 			e.printStackTrace();
-		}finally{
-			//finally block used to close resources
-			try{
-				if(stmt!=null)
-					stmt.close();
-			}catch(SQLException se2){
-			}// nothing we can do
-			try{
-				if(conn!=null)
-					conn.close();
-			}catch(SQLException se){
-				se.printStackTrace();
-			}//end finally try
-		}//end try
-		System.out.println("Goodbye!");
+		} catch(Exception f) {
+			// Errori di Class.forName
+			f.printStackTrace();
+		}
 	}
 
+	/**
+	 * 
+	 * @param nomeDb
+	 * @param nomeTabella
+	 * @param colonne
+	 * @return
+	 */
 	public static ArrayList<String[]> selezionaColonne(String nomeDb, String nomeTabella, ArrayList<String> colonne)
 	{
-		Connection conn = null;
+		Connection conn = getConnection();
+		useDb(conn);
+		
 		Statement stmt = null;
 		ResultSet rs = null;
 		ArrayList<String[]> ret = new ArrayList<String[]>();
 
 		try {
-
-			Class.forName("com.mysql.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mysql://db4free.net:3306", "marcomassiema", "marcomassiema");
-
+			// Creazione query
 			stmt = conn.createStatement();
-
-			String sql, sql2;
-			sql = "use marcomassiema;";
-			sql2 = "SELECT ";
+			String sql = "SELECT ";
 
 			for (int i = 0; i < colonne.size(); i++) {
-				sql2 += colonne.get(i);
+				sql += colonne.get(i);
 				if (colonne.size() - i > 1)
-					sql2 += ", ";
+					sql += ", ";
 			}
 
-			sql2 += " FROM " + nomeDb + "_" + nomeTabella + ";";
-			System.out.println(sql2);
-			stmt.execute(sql);
-			rs = stmt.executeQuery(sql2);
+			sql += " FROM " + nomeDb + "_" + nomeTabella + ";";
+			
+			// Esecuzione query
+			rs = stmt.executeQuery(sql);
 
+			// Operazioni sul result set
 			while (!rs.isLast()) {
 				rs.next();
 				String[] riga = new String[colonne.size()];
@@ -285,51 +277,58 @@ public abstract class ServiziDB {
 				ret.add(riga);
 			}
 
+			// Chiusura risorse
 			stmt.close();
 			conn.close();
 
-		} catch (SQLException jdbcProblem) {
-			jdbcProblem.printStackTrace();
-		} catch (Exception forNameProblem) {
-			forNameProblem.printStackTrace();
+		} catch (SQLException e) {
+			// Errori del JDBC
+			e.printStackTrace();
+		} catch (Exception f) {
+			// Errori di Class.forName
+			f.printStackTrace();
 		}
 
 		return ret;
 	}
 
+	/**
+	 * Ottieni il numero di colonne di una tabella.
+	 * @param database Il nome del database contenente la tabella.
+	 * @param tabella Il nome della tabella.
+	 * @return
+	 */
 	public static int getNumeroColonne(String database, String tabella)
 	{
-		Connection conn = null;
+		Connection conn = getConnection();
+		useDb(conn);
+		
 		Statement stmt = null;
 		ResultSet rs = null;
 		int nColonne = 0;
 
 		try {
-
-			Class.forName("com.mysql.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mysql://db4free.net:3306", "marcomassiema", "marcomassiema");
-
+			// Creazione query
 			stmt = conn.createStatement();
+			String sql = "SHOW COLUMNS FROM " + database + "_" + tabella;
 
-			String sql, sql2;
-			sql = "use marcomassiema;";
-			sql2 = "SHOW COLUMNS FROM " + database + "_" + tabella;
+			// Esecuzione query
+			rs = stmt.executeQuery(sql);
 
-			stmt.execute(sql);
-			rs = stmt.executeQuery(sql2);
-
+			// Operazioni sul result set
 			while (!rs.isLast()) {
 				rs.next();
 				nColonne++;
 			}
 
+			// Chiusura risorse
 			stmt.close();
 			conn.close();
 
-		} catch (SQLException jdbcProblem) {
-			jdbcProblem.printStackTrace();
-		} catch (Exception forNameProblem) {
-			forNameProblem.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception f) {
+			f.printStackTrace();
 		}
 
 		return nColonne;
