@@ -10,7 +10,8 @@ import org.junit.Test;
 import it.speedhouse.main.statics.ServiziFile;
 import junit.framework.Assert;
 
-@SuppressWarnings("deprecation")
+@SuppressWarnings("deprecated")
+
 public class TestServiziFile {
 	
 	// utilizzati per i test estraiRighe
@@ -91,7 +92,7 @@ public class TestServiziFile {
 		colonne1 = new String[3];
 		colonne1[0] = "nome";
 		colonne1[1] = "cognome";
-		colonne1[2] = "et‡";
+		colonne1[2] = "et√†";
 		
 	}
 	
