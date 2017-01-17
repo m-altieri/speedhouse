@@ -16,7 +16,7 @@ public abstract class ServiziDB {
 	static final String PASS = "marcomassiema";
 
 
-
+	//test
 	public static ArrayList<String> ottieniTabelle(String nomeDb)
 	{
 		ArrayList<String> tabelle = new ArrayList<String>();
