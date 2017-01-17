@@ -91,7 +91,7 @@ public class TestSerrviziFile {
 		colonne1 = new String[3];
 		colonne1[0] = "nome";
 		colonne1[1] = "cognome";
-		colonne1[2] = "et‡";
+		colonne1[2] = "et√†";
 		
 	}
 	
