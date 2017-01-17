@@ -8,17 +8,23 @@ import java.awt.event.ActionListener;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 
+/**
+ * Classe componente dell'interfaccia grafica.
+ * La prima finestra con la quale l'utente interagisce.
+ * @author Altieri Massimiliano
+ *
+ */
 public class Index extends Finestra implements ActionListener {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	private JLabel speedhouse;
 	private JTextArea help;
 	private Font helpFont;
 	
+	/**
+	 * Crea la finestra, inizializza tutte le sue componenti e la mostra.
+	 */
 	public Index()
 	{
 		super();

@@ -7,6 +7,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+/**
+ * Classe astratta contenente servizi statici per operare sul database.
+ * Contiene metodi per creare database e tabelle, aggiungere ed ottenere dati, e altro.
+ * @author Altieri Massimiliano
+ *
+ */
 public abstract class ServiziDB {
 
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
@@ -334,73 +340,70 @@ public abstract class ServiziDB {
 		return nColonne;
 	}
 
+	/**
+	 * Estrai i nomi delle colonna di una tabella.
+	 * @param database Nome del database contenente la tabella.
+	 * @param tabella Nome della tabella.
+	 * @return ArrayList di stringhe contenente i nomi delle colonne, in ordine.
+	 */
 	public static ArrayList<String> estraiColonne(String database, String tabella)
 	{
-		Connection conn = null;
+		Connection conn = getConnection();
+		useDb(conn);
+		
 		Statement stmt = null;
 		ResultSet rs = null;
 		ArrayList<String> colonne = new ArrayList<String>();
 
 		try {
-
-			Class.forName("com.mysql.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mysql://db4free.net:3306", "marcomassiema", "marcomassiema");
-
+			// Creazione ed esecuzione query
 			stmt = conn.createStatement();
-
-			String sql, sql2;
-			sql = "use marcomassiema;";
-			sql2 = "SHOW COLUMNS FROM " + database + "_" + tabella;
-
-			stmt.execute(sql);
+			String sql2 = "SHOW COLUMNS FROM " + database + "_" + tabella;
 			rs = stmt.executeQuery(sql2);
 
+			// Operazioni sul result set
 			while (!rs.isLast()) {
 				rs.next();
 				colonne.add(rs.getString(1));
 			}
 
+			// Chiusura risorse
 			stmt.close();
 			conn.close();
-
-		} catch (SQLException jdbcProblem) {
-			jdbcProblem.printStackTrace();
-		} catch (Exception forNameProblem) {
-			forNameProblem.printStackTrace();
+		} catch (SQLException e) {
+			// Errori del JDBC
+			e.printStackTrace();
+		} catch (Exception f) {
+			// Errori di Class.forName
+			f.printStackTrace();
 		}
 
 		return colonne;
 	}
 
 	/**
-	 * 
-	 * @param nomeDb
-	 * @param nomeTabella
+	 * Ottieni il nome di una colonna di una tabella.
+	 * @param nomeDb Il nome del database contenente la tabella.
+	 * @param nomeTabella Il nome della tabella.
 	 * @param index - L'indice della colonna di cui estrarre il nome. La prima colonna ha indice 1.
-	 * @return
+	 * @return Il nome della colonna.
 	 */
 	public static String getColonna(String nomeDb, String nomeTabella, int index)
 	{
-
-		Connection conn = null;
+		Connection conn = getConnection();
+		useDb(conn);
+		
 		Statement stmt = null;
 		ResultSet rs = null;
 		String ret = "";
 
 		try {
-
-			Class.forName("com.mysql.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mysql://db4free.net:3306", "marcomassiema", "marcomassiema");
-
+			// Creazione ed esecuzione query
 			stmt = conn.createStatement();
+			String sql = "SHOW COLUMNS FROM " + nomeDb + "_" + nomeTabella;
+			rs = stmt.executeQuery(sql);
 
-			String sql, sql2;
-			sql = "use marcomassiema;";
-			sql2 = "SHOW COLUMNS FROM " + nomeDb + "_" + nomeTabella;
-
-			stmt.execute(sql);
-			rs = stmt.executeQuery(sql2);
-
+			// Operazioni sul result set
 			int count = 0;
 			while (!rs.isLast()) {
 				rs.next();
@@ -409,13 +412,16 @@ public abstract class ServiziDB {
 					ret = rs.getString(1);
 			}
 
+			// Chiusura risorse
 			stmt.close();
 			conn.close();
 
-		} catch (SQLException jdbcProblem) {
-			jdbcProblem.printStackTrace();
-		} catch (Exception forNameProblem) {
-			forNameProblem.printStackTrace();
+		} catch (SQLException e) {
+			// Errori del JDBC
+			e.printStackTrace();
+		} catch (Exception f) {
+			// Errori di Class.forName
+			f.printStackTrace();
 		}
 
 		return ret;
