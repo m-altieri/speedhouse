@@ -53,8 +53,9 @@ public class TestserviziDB {
 		ServiziDB.creaTabella("dbtest", tipi, "tabellatest", colonne);
 		
 		// Test
-		Assert.assertTrue(colonne.equals(ServiziDB.ottieniTabelle("dbtest")));
-		
+		//Assert.assertTrue(colonne.equals(ServiziDB.ottieniTabelle("dbtest")));
+		Assert.assertFalse(Utility.equals(ServiziDB.ottieniTabelle("dbtest"),colonne));
+		System.out.println("Prova");
 		// Eliminazione database creato
 		ServiziDB.eliminaTabella("dbtest", "tabellatest");
 	}

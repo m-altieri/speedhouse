@@ -3,6 +3,16 @@ package it.speedhouse.test;
 import java.util.ArrayList;
 
 abstract class Utility {
+	
+	public static boolean equals (ArrayList<String> o1, String[] o2) {
+		if (o1.size() != o2.length) 
+			return false;
+		for (int i = 0; i < o1.size(); i++) {
+			if (o1.get(i) != o2[i])
+				return false;
+		}
+		return true;
+	}
 
 	
 	public static boolean equals (ArrayList<String[]> o1, ArrayList<String[]> o2) {
