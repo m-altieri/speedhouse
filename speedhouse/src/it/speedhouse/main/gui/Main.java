@@ -14,7 +14,6 @@ public class Main {
 		finestra.setVisible(true);
 	}
 	
-	
 	// Crea il file databases.txt contenente i nomi dei database creati.
 	public static void primoAvvio()
 	{

@@ -1,6 +1,5 @@
 package it.speedhouse.main.gui;
 
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -16,14 +15,14 @@ public class MenuFunzioni extends JMenu {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private ActionListener asc;
+	private Finestra asc;
 	private JMenuItem importaCsv;
 	private JMenuItem creaDatabase;
 	private JMenu selezionaDatabase;
 	private ArrayList<JMenuItem> databaseCreati;
 	private JMenuItem produciGrafici;
 	
-	public MenuFunzioni(ActionListener f)
+	public MenuFunzioni(Finestra f)
 	{
 		super();
 		
@@ -37,7 +36,7 @@ public class MenuFunzioni extends JMenu {
 		importaCsv.setText("Importa file csv...");
 		importaCsv.setActionCommand("importaCsv");
 		creaDatabase = new JMenuItem();
-		creaDatabase.setText("Crea database");
+		creaDatabase.setText("Crea database...");
 		creaDatabase.setActionCommand("creaDatabase");
 		selezionaDatabase = new JMenu();
 		selezionaDatabase.setText("Seleziona database");
@@ -55,7 +54,6 @@ public class MenuFunzioni extends JMenu {
 		creaDatabase.addActionListener(f);
 		selezionaDatabase.addActionListener(f);
 		produciGrafici.addActionListener(f);
-		
 	}
 	
 	/**
@@ -118,6 +116,8 @@ public class MenuFunzioni extends JMenu {
 		}
 		databaseCreati.clear();
 		s.close();
+		
+		asc.paintAll(asc.getGraphics());
 	}
 	
 	public ArrayList<JMenuItem> getDatabaseCreati()

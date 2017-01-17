@@ -10,8 +10,9 @@ import org.junit.Test;
 import it.speedhouse.main.statics.ServiziFile;
 import junit.framework.Assert;
 
-@SuppressWarnings("deprecation")
-public class TestSerrviziFile {
+@SuppressWarnings("deprecated")
+
+public class TestServiziFile {
 	
 	// utilizzati per i test estraiRighe
 	File fw; // utilizzato per passare il nome del file nei test 

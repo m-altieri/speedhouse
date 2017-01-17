@@ -1,10 +1,12 @@
 package it.speedhouse.main.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JLabel;
+import javax.swing.JTextArea;
 
 public class Index extends Finestra implements ActionListener {
 
@@ -13,12 +15,9 @@ public class Index extends Finestra implements ActionListener {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private JLabel databaseNonSelezionato;
-		
-	public BarraMenu getBarraMenu()
-	{
-		return barraMenu;
-	}
+	private JLabel speedhouse;
+	private JTextArea help;
+	private Font helpFont;
 	
 	public Index()
 	{
@@ -28,37 +27,43 @@ public class Index extends Finestra implements ActionListener {
 		barraMenu = new BarraMenu(this);
 		this.setJMenuBar(barraMenu);
 		
-		databaseNonSelezionato = new JLabel("Non hai ancora selezionato un database...");
-		this.add(databaseNonSelezionato, BorderLayout.CENTER);
+		speedhouse = new JLabel("speedhouse");
+		speedhouse.setFont(new Font("Arial", Font.ITALIC, 90));
+		this.add(speedhouse, BorderLayout.NORTH);
 		
-//		try {
-			barraMenu.getMenuFunzioni().forzaSelezioneDB();
-//		} catch (FileNotFoundException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} //finchè non seleziona un db le altre funzioni sono disabilitate
+		help = new JTextArea();
+		help.setLineWrap(true);
+		help.setEditable(false);
+		help.setBackground(getBackground());
+		helpFont = new Font("Arial", Font.PLAIN, 20);
 		
+		help.setFont(helpFont);
+		help.setText("\n\n\nHai bisogno di selezionare un database per iniziare."
+				+ "\nSe non ne hai ancora creato uno, clicca sul menù Funzioni e poi su \"Crea database...\"."
+				+ "\nSuccessivamente puoi selezionarlo dal menù Funzioni > Seleziona database."
+				+ "\nDopodichè puoi importare dei file .csv andando su Funzioni > Importa file csv..."
+				+ "\nInfine con \"Produci grafici\" potrai visualizzare istogrammi e altri grafici selezionando"
+				+ "\ndelle colonne a scelta dalle tue tabelle.");
+		this.add(help, BorderLayout.CENTER);
+		
+		// Finchè non seleziona un db le altre funzioni sono disabilitate
+		barraMenu.getMenuFunzioni().forzaSelezioneDB();
+
 		this.setVisible(true);
 	}
 
 	/**
-	 * action listener delle funzioni della barra dei menù
+	 * Gestisce gli eventi scatenati dalla barra dei menù.
+	 * Apre una nuova finestra CreaDatabase se l'utente clicca su "Crea Database..." e apre 
+	 * una nuova finestra FinestraDatabase se seleziona un database dall'elenco.
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		switch (e.getActionCommand()) {
-		case "importaCsv":
-			dispose();
-			break;
+		switch (e.getActionCommand())
+		{
 		case "creaDatabase":
 			new CreaDatabase(this);
-			break;
-		case "selezionaDatabase":
-			dispose();
-			break;
-		case "produciGrafici":
-			dispose();
 			break;
 		default: 
 			dispose();
@@ -66,6 +71,5 @@ public class Index extends Finestra implements ActionListener {
 			break;
 		}
 	}
-	
 	
 }

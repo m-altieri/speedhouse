@@ -2,7 +2,6 @@ package it.speedhouse.main.gui;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -45,6 +44,7 @@ public class FinestraGrafici extends Finestra implements ActionListener {
 		super();
 		
 		this.setTitle("speedhouse - " + database);
+		this.barraMenu = new BarraMenu(this);
 		this.setJMenuBar(barraMenu);
 		this.database = database;
 		this.tabella = tabella;
@@ -125,10 +125,16 @@ public class FinestraGrafici extends Finestra implements ActionListener {
 			this.impostaStato("Creazione grafico in corso...");
 			this.paintAll(getGraphics());
 			ServiziGrafici.creaIstogramma("test", "testino", colonneSelezionate, ServiziDB.selezionaColonne(database, tabella, colonneSelezionate));
+			System.out.println(colonneSelezionate); //debug
 			this.impostaStato("Pronto");
 			this.paintAll(getGraphics());
 			break;
 		case "Torta":
+			this.impostaStato("Creazione grafico in corso...");
+			this.paintAll(getGraphics());
+			ServiziGrafici.creaTorta("test", "testino", colonneSelezionate, ServiziDB.selezionaColonne(database, tabella, colonneSelezionate));
+			this.impostaStato("Pronto");
+			this.paintAll(getGraphics());
 			break;
 		default:
 			for (int i = 0; i < cb.length; i++) {
@@ -136,7 +142,7 @@ public class FinestraGrafici extends Finestra implements ActionListener {
 					if (cb[i].isSelected())
 						this.colonneSelezionate.add(cb[i].getText());
 					else
-						this.colonneSelezionate.remove(cb[i]);
+						this.colonneSelezionate.remove(cb[i].getText());
 				}
 			}
 			break;

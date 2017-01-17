@@ -13,15 +13,16 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+/**
+ * La piccola finestra che si apre quando si seleziona l'item "Crea database..." dal menù Funzioni.
+ * @author Altieri Massimiliano
+ */
 public class CreaDatabase extends JFrame implements ActionListener {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+
 	private static final int WIDTH = 500;
 	private static final int HEIGHT = 200;
-	
 	
 	private JFrame asc;
 	
@@ -29,6 +30,10 @@ public class CreaDatabase extends JFrame implements ActionListener {
 	private JTextField txtNome;
 	private JButton conferma;
 	
+	/**
+	 * Crea la finestra di creazione del database.
+	 * @param asc	La finestra ActionListener dalla quale si è generato questo oggetto.
+	 */
 	public CreaDatabase(JFrame asc)
 	{
 		this.asc = asc;
@@ -52,26 +57,31 @@ public class CreaDatabase extends JFrame implements ActionListener {
 		this.setVisible(true);
 	}
 
+	/**
+	 * Gestisce l'evento scatenato dal click sul tasto di conferma.
+	 * Memorizza permanentemente il nome del database inserito nel campo di testo.
+	 * @param e	L'evento scatenato dal tasto di conferma.
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		switch (e.getActionCommand()) {
+		switch (e.getActionCommand())
+		{
 		case "Conferma":
 			PrintWriter pw = null;
 			try {
+				// Apre lo stream di scrittura in append
 				pw = new PrintWriter(new FileOutputStream("databases.txt", true));
-			} catch (FileNotFoundException e1) {
-				e1.printStackTrace();
+			} catch (FileNotFoundException f) {
+				f.printStackTrace();
 			}
-			//pw.println(); //per andare a capo, risolve il bug in cui creando un nuovo db viene messo accanto all'ultimo
 			pw.println(txtNome.getText());
 			pw.close();
 			MenuFunzioni mf = (MenuFunzioni) asc.getJMenuBar().getMenu(0);
 			try {
 				mf.aggiornaDB();
-			} catch (FileNotFoundException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+			} catch (FileNotFoundException f) {
+				f.printStackTrace();
 			}
 			dispose();
 			break;

@@ -23,7 +23,7 @@ public abstract class ServiziGrafici {
 	public static void creaIstogramma(String nomeGrafico, String sottotitolo, ArrayList<String> colonne, ArrayList<String[]> dati) {
 		
 		JFrame frame = new JFrame("speedhouse - " + nomeGrafico);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 		DefaultCategoryDataset d = new DefaultCategoryDataset();
 		
@@ -57,5 +57,10 @@ public abstract class ServiziGrafici {
 		RefineryUtilities.centerFrameOnScreen(frame);
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		frame.setVisible(true);
+	}
+	
+	public static void creaTorta(String nomeGrafico, String sottotitolo, ArrayList<String> colonne, ArrayList<String[]> dati)
+	{
+		//TODO
 	}
 }
