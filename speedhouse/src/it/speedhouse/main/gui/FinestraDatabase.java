@@ -150,6 +150,12 @@ public class FinestraDatabase extends Finestra implements ActionListener, FocusL
 		}
 	}
 
+	/**
+	 * Istruzioni eseguite quando la finestra ottiene il focus.
+	 * Per evitare bug, la finestra oltre ad acquisire il focus ha bisogno anche che la variabile aggiornato sia false, 
+	 * altrimenti in alcuni casi la finestra rileva un continuo guadagno di focus e di conseguenza il programma viene 
+	 * percepito come bloccato dall'utente.
+	 */
 	@Override
 	public void focusGained(FocusEvent e) {
 			
@@ -190,8 +196,10 @@ public class FinestraDatabase extends Finestra implements ActionListener, FocusL
 		this.update(getGraphics());
 	}
 
+	/**
+	 * Metodo con corpo nullo.
+	 * E' stato inserito solo per rispettare il contratto dell'interfaccia FocusListener.
+	 */
 	@Override
-	public void focusLost(FocusEvent arg0) {
-		System.out.println("debug");
-	}
+	public void focusLost(FocusEvent arg0) {}
 }

@@ -1,6 +1,5 @@
 package it.speedhouse.main.gui;
 
-import java.awt.event.ActionListener;
 import javax.swing.JMenuBar;
 
 /**

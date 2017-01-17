@@ -18,8 +18,20 @@ import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.ui.RefineryUtilities;
 
+/**
+ * Classe astratta contenente metodi statici per creare grafici.
+ * @author Altieri Massimiliano
+ *
+ */
 public abstract class ServiziGrafici {
 
+	/**
+	 * Crea e mostra una finestra in cui è disegnato un istogramma.
+	 * @param nomeGrafico Il nome del grafico e della finestra.
+	 * @param sottotitolo Il sottotitolo del grafico.
+	 * @param colonne Oggetto contenente i nomi delle colonne del grafico.
+	 * @param dati Oggetto contenente tutti i dati con cui creare il grafico.
+	 */
 	public static void creaIstogramma(String nomeGrafico, String sottotitolo, ArrayList<String> colonne, ArrayList<String[]> dati) {
 		
 		JFrame frame = new JFrame("speedhouse - " + nomeGrafico);
@@ -59,6 +71,13 @@ public abstract class ServiziGrafici {
 		frame.setVisible(true);
 	}
 	
+	/**
+	 * TODO
+	 * @param nomeGrafico
+	 * @param sottotitolo
+	 * @param colonne
+	 * @param dati
+	 */
 	public static void creaTorta(String nomeGrafico, String sottotitolo, ArrayList<String> colonne, ArrayList<String[]> dati)
 	{
 		//TODO

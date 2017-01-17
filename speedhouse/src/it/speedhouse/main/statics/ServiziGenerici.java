@@ -1,5 +1,10 @@
 package it.speedhouse.main.statics;
 
+/**
+ * Classe astratta contenente metodi statici di utilizzo generico.
+ * @author Altieri Massimiliano
+ *
+ */
 public abstract class ServiziGenerici {
 
 	/**

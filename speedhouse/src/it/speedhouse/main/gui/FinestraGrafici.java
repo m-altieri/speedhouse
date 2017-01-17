@@ -14,11 +14,13 @@ import javax.swing.JPanel;
 import it.speedhouse.main.statics.ServiziDB;
 import it.speedhouse.main.statics.ServiziGrafici;
 
+/**
+ * Classe componente dell'interfaccia grafica dedicata alla creazione di grafici effettuando operazioni sui dati inseriti.
+ * @author Altieri Massimiliano
+ *
+ */
 public class FinestraGrafici extends Finestra implements ActionListener {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	private String database;
@@ -39,6 +41,11 @@ public class FinestraGrafici extends Finestra implements ActionListener {
 	private int nColonne;
 	private JPanel grafici;
 	
+	/**
+	 * Crea la finestra per la creazione di grafici, inizializza tutti i suoi componenti e prepara l'ambiente.
+	 * @param database Il database da cui estrarre i dati.
+	 * @param tabella La tabella da cui estrarre i dati.
+	 */
 	public FinestraGrafici(String database, String tabella)
 	{
 		super();
@@ -117,7 +124,11 @@ public class FinestraGrafici extends Finestra implements ActionListener {
 		this.add(center, BorderLayout.CENTER);
 	}
 
-
+	/**
+	 * Azioni eseguite quando si clicca sui pulsanti di creazione, quando si attivano o disattivano le checkbox, 
+	 * o quando si selezionano opzioni del menù.
+	 * @see ActionListener
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		switch (e.getActionCommand()) {
