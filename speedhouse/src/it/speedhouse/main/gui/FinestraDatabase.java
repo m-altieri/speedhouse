@@ -11,7 +11,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
-import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
@@ -35,7 +34,6 @@ public class FinestraDatabase extends Finestra implements ActionListener, FocusL
 	private String nomeDb;
 	private JComboBox<String> selezionatore;
 	private JLabel lblSeleziona;
-	private JButton cmbVisualizza;
 	private JPanel pannelloSuperiore;
 	
 	private boolean aggiornato;
@@ -62,16 +60,12 @@ public class FinestraDatabase extends Finestra implements ActionListener, FocusL
 		lblSeleziona = new JLabel("Seleziona tabella");
 		selezionatore = new JComboBox<String>();
 		selezionatore.setPreferredSize(new Dimension(SELEZIONATORE_WIDTH, SELEZIONATORE_HEIGHT));
-		cmbVisualizza = new JButton("Visualizza");
-		cmbVisualizza.setActionCommand("cmbVisualizza");
-		cmbVisualizza.addActionListener(this);
 		selezionatore.addFocusListener(this);
 		
 		pannelloSuperiore = new JPanel();
 		pannelloSuperiore.setLayout(new FlowLayout());
 		pannelloSuperiore.add(lblSeleziona);
 		pannelloSuperiore.add(selezionatore);
-		pannelloSuperiore.add(cmbVisualizza);
 		
 		this.add(pannelloSuperiore, BorderLayout.NORTH);
 		
@@ -106,7 +100,6 @@ public class FinestraDatabase extends Finestra implements ActionListener, FocusL
 				this.impostaStato("Importazione csv...");
 				this.update(getGraphics());
 				lblSeleziona.setEnabled(false);
-				cmbVisualizza.setEnabled(false);
 				selezionatore.setEnabled(false);
 				this.barraMenu.setEnabled(false);
 				this.paintAll(getGraphics());
@@ -126,7 +119,6 @@ public class FinestraDatabase extends Finestra implements ActionListener, FocusL
 				this.impostaStato("Pronto");
 				this.paintAll(getGraphics());
 				lblSeleziona.setEnabled(true);
-				cmbVisualizza.setEnabled(true);
 				selezionatore.setEnabled(true);
 				this.barraMenu.setEnabled(true);
 				this.paintAll(getGraphics());
@@ -171,7 +163,6 @@ public class FinestraDatabase extends Finestra implements ActionListener, FocusL
 		impostaStato("Pronto");
 		this.update(getGraphics());
 		lblSeleziona.setEnabled(false);
-		cmbVisualizza.setEnabled(false);
 		selezionatore.setEnabled(false);
 		this.barraMenu.setEnabled(false);
 		this.update(getGraphics());
@@ -190,7 +181,6 @@ public class FinestraDatabase extends Finestra implements ActionListener, FocusL
 		aggiornato = true;
 		
 		lblSeleziona.setEnabled(true);
-		cmbVisualizza.setEnabled(true);
 		selezionatore.setEnabled(true);
 		this.barraMenu.setEnabled(true);
 		this.update(getGraphics());

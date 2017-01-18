@@ -61,12 +61,12 @@ public class TestUtility {
 	public void testEquals1() throws FileNotFoundException
 	{	
 			// test 1
-			Assert.assertEquals(Utility.equals(l1, l2), true);
-			Assert.assertEquals(Utility.equals(l1, l3), false);
-			Assert.assertEquals(Utility.equals(l1, l4), false);
-			Assert.assertEquals(Utility.equals(l1, l5), false);
-			Assert.assertEquals(Utility.equals(l6, array2), true);
-			Assert.assertEquals(Utility.equals(l6, array1), false);
-			Assert.assertEquals(Utility.equals(l6, array3), false);
+			Assert.assertEquals(Utility.equals(l1, l2), true);		//confronta due ArrayList di array uguali
+			Assert.assertEquals(Utility.equals(l1, l3), false);		//confronta due ArrayList di stringhe di dimensioni diverse
+			Assert.assertEquals(Utility.equals(l1, l4), false);		//confronta due ArrayList di stringhe dalle stesse dimensioni, ma con array diversi
+			Assert.assertEquals(Utility.equals(l1, l5), false);		//confronta due ArrayList di cui uno contiene un array di dimensione diversa rispetto all'altro
+			Assert.assertEquals(Utility.equals(l6, array2), true);	//confronta un ArrayList con un array, entrambi contenenti gli stessi dati
+			Assert.assertEquals(Utility.equals(l6, array1), false);	//confronta un ArrayList con un array, contenenti dati diversi
+			Assert.assertEquals(Utility.equals(l6, array3), false);	//confronta un ArrayList con un array, con diverse dimensioni
 	}
 }

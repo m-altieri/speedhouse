@@ -48,7 +48,7 @@ public abstract class ServiziGrafici {
 		CategoryDataset dataset = d;
 
 		JFreeChart chart = ChartFactory.createBarChart(nomeGrafico,
-				"Sezioni" /* x-axis label */, "Voti" /* y-axis label */, dataset);
+				colonne.get(0) /* x-axis label */, "Quantità" /* y-axis label */, dataset);
 		chart.addSubtitle(new TextTitle(sottotitolo));
 		chart.setBackgroundPaint(Color.GREEN);
 		CategoryPlot plot = (CategoryPlot) chart.getPlot();
@@ -69,17 +69,5 @@ public abstract class ServiziGrafici {
 		RefineryUtilities.centerFrameOnScreen(frame);
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		frame.setVisible(true);
-	}
-	
-	/**
-	 * TODO
-	 * @param nomeGrafico
-	 * @param sottotitolo
-	 * @param colonne
-	 * @param dati
-	 */
-	public static void creaTorta(String nomeGrafico, String sottotitolo, ArrayList<String> colonne, ArrayList<String[]> dati)
-	{
-		//TODO
 	}
 }

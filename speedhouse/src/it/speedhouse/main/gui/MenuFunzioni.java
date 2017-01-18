@@ -107,8 +107,10 @@ public class MenuFunzioni extends JMenu {
 		//visualizza nel menu tutti i db creati
 		File databases = new File("databases.txt");
 		Scanner s = new Scanner(databases);
-		while (s.hasNext())
+		while (s.hasNext()) {
 			databaseCreati.add(new JMenuItem(s.nextLine()));
+			this.selezionaDatabase.setEnabled(true);
+		}
 		for (JMenuItem e : databaseCreati) {
 			selezionaDatabase.add(e);
 			e.setActionCommand(e.getText());

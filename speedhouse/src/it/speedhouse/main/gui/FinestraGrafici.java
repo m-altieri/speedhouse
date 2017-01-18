@@ -31,8 +31,6 @@ public class FinestraGrafici extends Finestra implements ActionListener {
 	
 	private JButton cmbIstogramma;
 	private JLabel lblIstogramma;
-	private JButton cmbTorta;
-	private JLabel lblTorta;
 	private JPanel center;
 	private JCheckBox[] cb;
 	private JPanel checkboxGroup;
@@ -40,6 +38,8 @@ public class FinestraGrafici extends Finestra implements ActionListener {
 	private ArrayList<String> colonneSelezionate;
 	private int nColonne;
 	private JPanel grafici;
+	
+	private JButton indietro;
 	
 	/**
 	 * Crea la finestra per la creazione di grafici, inizializza tutti i suoi componenti e prepara l'ambiente.
@@ -53,6 +53,7 @@ public class FinestraGrafici extends Finestra implements ActionListener {
 		this.setTitle("speedhouse - " + database);
 		this.barraMenu = new BarraMenu(this);
 		this.setJMenuBar(barraMenu);
+		barraMenu.getMenuFunzioni().setEnabled(false);
 		this.database = database;
 		this.tabella = tabella;
 		
@@ -105,23 +106,25 @@ public class FinestraGrafici extends Finestra implements ActionListener {
 		lblIstogramma = new JLabel();
 		lblIstogramma.setText("Crea un istogramma con le colonne selezionate.");
 		
-		cmbTorta = new JButton();
-		cmbTorta.setText("Grafico a torta");
-		cmbTorta.setActionCommand("Torta");
-		cmbTorta.addActionListener(this);
-		lblTorta = new JLabel();
-		lblTorta.setText("Crea un grafico a torta con le colonne selezionate");
-		
 		grafici = new JPanel();
 		grafici.setLayout(new FlowLayout());
 		grafici.add(cmbIstogramma, 0);
 		grafici.add(lblIstogramma, 1);
-		grafici.add(cmbTorta, 0);
-		grafici.add(lblTorta, 1);
 		
 		center.add(grafici, BorderLayout.CENTER);
 		
+
+		indietro = new JButton("Indietro");
+		indietro.addActionListener(this);
+		indietro.setActionCommand("Indietro");
+		JPanel pulsanteIndietro = new JPanel();
+		pulsanteIndietro.setLayout(new FlowLayout());
+		pulsanteIndietro.add(indietro);
+		
+		center.add(pulsanteIndietro, BorderLayout.SOUTH);
+		
 		this.add(center, BorderLayout.CENTER);
+		
 	}
 
 	/**
@@ -135,17 +138,14 @@ public class FinestraGrafici extends Finestra implements ActionListener {
 		case "Istogramma":
 			this.impostaStato("Creazione grafico in corso...");
 			this.paintAll(getGraphics());
-			ServiziGrafici.creaIstogramma("test", "testino", colonneSelezionate, ServiziDB.selezionaColonne(database, tabella, colonneSelezionate));
+			ServiziGrafici.creaIstogramma("Database: " + database, "Tabella: " + tabella, colonneSelezionate, ServiziDB.selezionaColonne(database, tabella, colonneSelezionate));
 			System.out.println(colonneSelezionate); //debug
 			this.impostaStato("Pronto");
 			this.paintAll(getGraphics());
 			break;
-		case "Torta":
-			this.impostaStato("Creazione grafico in corso...");
-			this.paintAll(getGraphics());
-			ServiziGrafici.creaTorta("test", "testino", colonneSelezionate, ServiziDB.selezionaColonne(database, tabella, colonneSelezionate));
-			this.impostaStato("Pronto");
-			this.paintAll(getGraphics());
+		case "Indietro":
+			new FinestraDatabase(database);
+			dispose();
 			break;
 		default:
 			for (int i = 0; i < cb.length; i++) {
