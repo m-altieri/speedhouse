@@ -5,7 +5,6 @@ import javax.swing.JMenuBar;
 /**
  * Barra dei menù presente in ogni classe derivata da Finestra.
  * Per sottoclassi di Finestra, per utilizzare BarraMenu occorre istanziarla e poi passarla al metodo setJMenuBar.
- * @author Altieri Massimiliano
  * @see Finestra
  */
 public class BarraMenu extends JMenuBar {

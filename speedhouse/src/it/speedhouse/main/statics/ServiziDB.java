@@ -274,6 +274,7 @@ public abstract class ServiziDB {
 			rs = stmt.executeQuery(sql);
 
 			// Operazioni sul result set
+			
 			while (!rs.isLast()) {
 				rs.next();
 				String[] riga = new String[colonne.size()];
@@ -294,7 +295,7 @@ public abstract class ServiziDB {
 			// Errori di Class.forName
 			f.printStackTrace();
 		}
-
+	
 		return ret;
 	}
 
@@ -423,7 +424,8 @@ public abstract class ServiziDB {
 			// Errori di Class.forName
 			f.printStackTrace();
 		}
-
+		System.out.println("a " + ret);
 		return ret;
+		
 	}
 }

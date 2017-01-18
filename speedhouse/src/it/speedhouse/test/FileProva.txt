@@ -1,2 +1,2 @@
-"nome";"cognome";"età"
-"marco";"de vito";"21"
+"nome";"cognome";"eta"
+"Marco";"De Vito";"21"

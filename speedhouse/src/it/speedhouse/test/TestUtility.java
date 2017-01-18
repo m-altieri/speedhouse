@@ -1,15 +1,16 @@
 package it.speedhouse.test;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import junit.framework.Assert;
 @SuppressWarnings("deprecation")
 
+/**
+ * Questa classe testa i metodi della classe Utility.
+ */
 public class TestUtility {
 	
 	//ArrayList e array utilizzati per i test
@@ -23,6 +24,9 @@ public class TestUtility {
 	String[] array2 = {"111", "222", "333", "444", "555"};
 	String[] array3 = {"1", "2", "3", "4", "5", "6"}; //dimensione diversa dalle altre
 	
+	/**
+	 * crea array e ArrayList che verranno utilizzati nei test
+	 */
 	@Before
 	public void setUp(){
 		l1 = new ArrayList <String[]>(2);
@@ -52,21 +56,21 @@ public class TestUtility {
 		
 	}
 	
-	@After
-	public void tearDown(){
-		
-	}
-	
+
+	/**
+	 * Testa ogni overload del metodo equals nella classe Utility.
+	 * 
+	 */
 	@Test
-	public void testEquals1() throws FileNotFoundException
+	public void testEquals() 
 	{	
 			// test 1
-			Assert.assertEquals(Utility.equals(l1, l2), true);
-			Assert.assertEquals(Utility.equals(l1, l3), false);
-			Assert.assertEquals(Utility.equals(l1, l4), false);
-			Assert.assertEquals(Utility.equals(l1, l5), false);
-			Assert.assertEquals(Utility.equals(l6, array2), true);
-			Assert.assertEquals(Utility.equals(l6, array1), false);
-			Assert.assertEquals(Utility.equals(l6, array3), false);
+			Assert.assertEquals(Utility.equals(l1, l2), true);		//confronta due ArrayList di array uguali
+			Assert.assertEquals(Utility.equals(l1, l3), false);		//confronta due ArrayList di stringhe di dimensioni diverse
+			Assert.assertEquals(Utility.equals(l1, l4), false);		//confronta due ArrayList di stringhe dalle stesse dimensioni, ma con array diversi
+			Assert.assertEquals(Utility.equals(l1, l5), false);		//confronta due ArrayList di cui uno contiene un array di dimensione diversa rispetto all'altro
+			Assert.assertEquals(Utility.equals(l6, array2), true);	//confronta un ArrayList con un array, entrambi contenenti gli stessi dati
+			Assert.assertEquals(Utility.equals(l6, array1), false);	//confronta un ArrayList con un array, contenenti dati diversi
+			Assert.assertEquals(Utility.equals(l6, array3), false);	//confronta un ArrayList con un array, con diverse dimensioni
 	}
 }
