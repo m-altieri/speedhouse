@@ -7,8 +7,6 @@ import java.io.PrintWriter;
 /**
  * Classe da cui parte l'esecuzione quando questo sistema viene eseguito come applicazione Java.
  * Predispone l'ambiente operativo e mostra la prima finestra da cui parte l'interazione con l'utente.
- * @author Altieri Massimiliano
- *
  */
 public class Main {
 	

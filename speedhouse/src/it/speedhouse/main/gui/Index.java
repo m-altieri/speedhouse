@@ -11,8 +11,6 @@ import javax.swing.JTextArea;
 /**
  * Classe componente dell'interfaccia grafica.
  * La prima finestra con la quale l'utente interagisce.
- * @author Altieri Massimiliano
- *
  */
 public class Index extends Finestra implements ActionListener {
 

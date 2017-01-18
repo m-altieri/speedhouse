@@ -1,10 +1,8 @@
 package it.speedhouse.test;
-import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -12,14 +10,21 @@ import it.speedhouse.main.statics.ServiziDB;
 import junit.framework.Assert;
 
 @SuppressWarnings("deprecation")
-
+/**
+ * 
+ * Testa i metodi della classe ServiziDB.
+ *
+ */
 public class TestServiziDB {
 
 	Connection conn = null;
 	Statement stmt = null;
 	String[] colonne;
 	String[] tipi;
-
+	
+	/**
+	 * Crea e inizializza l'array utilizzato nei metodi successivi.
+	 */
 	@Before
 	public void setUp() {
 		colonne = new String[3];
@@ -31,14 +36,9 @@ public class TestServiziDB {
 		for (int i = 0; i < 3; tipi[i++] = "int");
 	}
 
-	@After
-	public void tearDown() 
-	{
-
-	}
 
 	/**
-	 * @throws FileNotFoundException 
+	 * Testa il metodo creaTabelle della classe ServiziDB 
 	 *
 	 */
 	@Test
@@ -58,11 +58,11 @@ public class TestServiziDB {
 	}
 
 	/**
-	 * @throws FileNotFoundException 
+	 * Testa il metodo ottieniTabelle della classe ServiziDB.
 	 *
 	 */
 	@Test
-	public void testOttieniTabelle() throws Exception
+	public void testOttieniTabelle()
 	{
 		// Arrange
 		ServiziDB.creaTabella("dbtest", tipi, "tabellatest", colonne);
@@ -82,7 +82,9 @@ public class TestServiziDB {
 	}	
 
 	/**
-	 * @throws FileNotFoundException 
+	 * Testa il metodo inserisciDati della classe ServiziDB
+	 * Inserisce i dati in un database di prova, e poi controlla che i dati presenti nel database
+	 * siano uguali a quelli inseriti
 	 *
 	 */
 	@Test
@@ -118,7 +120,8 @@ public class TestServiziDB {
 	}
 
 	/**
-	 * @throws FileNotFoundException 
+	 * Testa il metodo selezionaColonne della classe ServiziDB.
+	 * Preleva i dati presenti nel database e li confronta con quelli precedentemente inseriti.
 	 *
 	 */
 	@Test
@@ -153,7 +156,8 @@ public class TestServiziDB {
 	}
 
 	/**
-	 * @throws FileNotFoundException 
+	 * Testa il metodo getNumeroColonne della classe ServiziDB.
+	 *
 	 *
 	 */
 	@Test
@@ -178,7 +182,8 @@ public class TestServiziDB {
 	}
 
 	/**
-	 * @throws FileNotFoundException 
+	 * Testa il metodo estraiColonne della classe ServiziDB.
+	 * Crea e popola un array e lo confronta con le colonne di una tabella precedentemente inserita nel database.
 	 *
 	 */
 	@Test
@@ -201,7 +206,8 @@ public class TestServiziDB {
 	}
 
 	/**
-	 * @throws FileNotFoundException 
+	 *
+	 *	Testa il metodo getColonna appartenente alla classe ServiziDB.
 	 *
 	 */
 	@Test
@@ -210,7 +216,7 @@ public class TestServiziDB {
 		String nometabella = "nomeTabella";
 		String[] nuovitipi = new String[3];
 		ArrayList <String> nuovecolonne1 = new ArrayList<String>();
-		ServiziDB.eliminaTabella(db, nometabella);
+		//ServiziDB.eliminaTabella(db, nometabella);
 
 
 		for (int i = 0; i < 3; nuovitipi[i++] = "decimal");

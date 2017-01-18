@@ -14,7 +14,6 @@ import org.jfree.ui.RefineryUtilities;
  * Classe base di tutte le finestre principali del programma, in particolare di tutte le finestre contenenti la barra dei menù.
  * Fornisce il template generale.
  * Implementa l'interfaccia ActionListener.
- * @author Altieri Massimiliano
  */
 public abstract class Finestra extends JFrame implements ActionListener {
 

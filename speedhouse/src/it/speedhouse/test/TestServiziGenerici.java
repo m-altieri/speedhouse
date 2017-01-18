@@ -12,22 +12,9 @@ public class TestServiziGenerici {
 	public static final String intMax = "2147483647";
 	public static final String intMin = "-2147483647";
 
-	@Before
-	public void setUp() {
-
-	}
-	
-	@After
-	public void tearDown() {
-		
-	}
 
 	/**
 	 * Testing del metodo isInteger appartenente alla classe ServiziGenerici del package it.speedhouse.main.statics.
-	 * Precondizione: Deve essere passata una variabile di tipo stringa.
-	 * Il metodo restituisce true se la variabile contiene un numero intero, mentre nel caso contrario restituisce false.
-	 * 
-	 * 
 	 */
 	@Test
 	public void testIsInteger()
@@ -63,11 +50,9 @@ public class TestServiziGenerici {
 		
 	}
 	
-	/*
+	/**
 	 * Testing del metodo isDecimal appartenente alla classe ServiziGenerici del package it.speedhouse.main.statics.
-	 * Precondizione: Deve essere passata una variabile di tipo stringa.
-	 * Il metodo restituisce true se la variabile contiene un numero intero o decimale, mentre nel caso contrario restituisce false.
-	 */
+	*/
 	@Test
 	public void testIsDecimal()
 	{
@@ -97,10 +82,8 @@ public class TestServiziGenerici {
 		Assert.assertEquals(ServiziGenerici.isInteger(Integer.toString(Integer.parseInt(intMax) + 1)), true);
 	}	
 	
-	/*
+	/**
 	 * Testing del metodo isString appartenente alla classe ServiziGenerici del package it.speedhouse.main.statics.
-	 * Precondizione: Deve essere passata una variabile di tipo stringa.
-	 * Il metodo restituisce true se la variabile contiene un numero intero o decimale, mentre nel caso contrario restituisce false.
 	 */
 	@Test
 	public void testIsString()
@@ -117,10 +100,8 @@ public class TestServiziGenerici {
 
 	}
 	
-	/*
+	/**
 	 * Testing del metodo isNumber appartenente alla classe ServiziGenerici del package it.speedhouse.main.statics.
-	 * Precondizione: Deve essere passata una variabile di tipo stringa.
-	 * Il metodo restituisce true se la variabile contiene un numero intero o decimale, mentre nel caso contrario restituisce false.
 	 */
 	@Test
 	public void testIsNumber()
@@ -138,8 +119,8 @@ public class TestServiziGenerici {
 
 	}
 	
-	/*
-	 * 
+	/**
+	 * 	Testing del metodo whatIs appartenente alla classe ServiziGenerici.
 	 */
 	@Test
 	public void testWhatIs()
@@ -152,6 +133,3 @@ public class TestServiziGenerici {
 	
 	
 }
-
-
-// da rivedere i commenti dei test perchè sono uguali a quelli dei metodi

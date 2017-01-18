@@ -16,8 +16,6 @@ import it.speedhouse.main.statics.ServiziGrafici;
 
 /**
  * Classe componente dell'interfaccia grafica dedicata alla creazione di grafici effettuando operazioni sui dati inseriti.
- * @author Altieri Massimiliano
- *
  */
 public class FinestraGrafici extends Finestra implements ActionListener {
 

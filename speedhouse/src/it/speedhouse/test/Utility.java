@@ -2,8 +2,18 @@ package it.speedhouse.test;
 
 import java.util.ArrayList;
 
+/**
+ * 
+ * Classe astratta contenente vari metodi statici di utilità generale.
+ *
+ */
 abstract class Utility {
-	
+	/**
+	 * Confronta i dati inseriti in un ArrayList con quelli all'interno di un array di stringhe
+	 * @param o1 l'ArrayList di stringhe da confrontare.
+	 * @param o2 l'array di stringhe da confrontare.
+	 * @return true se i dati inseriti sono gli stessi, altrimenti false
+	 */
 	public static boolean equals (ArrayList<String> o1, String[] o2) {	//confronta un ArrayList di Stringhe con un array di stringhe
 		if (o1.size() != o2.length) 	//l'ArrayList ha dimensione diversa rispetto all'array
 			return false;				//Quindi essi sono diversi tra loro
@@ -14,7 +24,12 @@ abstract class Utility {
 		return true;
 	}
 
-	
+	/**
+	 * Confronta due ArrayList di array di stringhe.
+	 * @param o1 l'ArrayList di array di stringhe da confrontare.
+	 * @param o2 l'ArrayList di array di stringhe da confrontare.
+	 * @return true se i dati inseriti nei due ArrayList sono uguali, o altrimenti false
+	 */
 	public static boolean equals (ArrayList<String[]> o1, ArrayList<String[]> o2) {	//confronta due ArrayList di array di stringhe
 		
 		if (o1.size() != o2.size()) {
@@ -29,6 +44,12 @@ abstract class Utility {
 		return true;	//se fin'ora non è stato trovata alcuna differenza tra i due ArrayList, essi sono uguali
 	}
 	
+	/**
+	 * Confronta due array di stringhe.
+	 * @param o1 L'array di stringhe da confrontare.
+	 * @param o2 L'array di stringhe da confrontare.
+	 * @return true se i dati inseriti nei due array sono uguali.
+	 */
 	public static boolean equals (String[] o1, String[] o2) {	//confronta due array di stringhe
 
 		if (o1.length != o2.length)		

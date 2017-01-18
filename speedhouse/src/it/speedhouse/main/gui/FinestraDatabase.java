@@ -22,7 +22,6 @@ import it.speedhouse.main.statics.ServiziFile;
 /**
  * Finestra dalla quale è possibile importare file, selezionare tra le tabelle inserite, produrre grafici.
  * E' una delle finestre principali.
- * @author Altieri Massimiliano
  */
 public class FinestraDatabase extends Finestra implements ActionListener, FocusListener {
 
@@ -71,15 +70,6 @@ public class FinestraDatabase extends Finestra implements ActionListener, FocusL
 		
 	}
 	
-	/**
-	 * Metodo get per ottenere il nome semplice del database attualmente utilizzato.
-	 * @return Il nome del database al quale si è acceduti.
-	 */
-	public String getNomeDb()
-	{
-		return nomeDb;
-	}
-
 	/**
 	 * Gestore degli eventi.
 	 * @param e	Evento scatenato. Può essere una qualsiasi operazione effettuabile da questa finestra.

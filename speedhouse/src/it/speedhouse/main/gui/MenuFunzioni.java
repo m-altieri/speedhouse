@@ -8,11 +8,11 @@ import java.util.Scanner;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
+/**
+ * Classe che modella il primo menù della barra dei menù, cioè quello delle Funzioni.
+ */
 public class MenuFunzioni extends JMenu {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	private Finestra asc;
@@ -90,15 +90,7 @@ public class MenuFunzioni extends JMenu {
 		creaDatabase.setEnabled(true);
 		produciGrafici.setEnabled(false);
 	}
-	
-	public void sbloccaImportazione()
-	{
-		importaCsv.setEnabled(true);
-		creaDatabase.setEnabled(true);
-		produciGrafici.setEnabled(true);
-		selezionaDatabase.setEnabled(true);
-	}
-	
+
 	public void aggiornaDB() throws FileNotFoundException
 	{
 		//rimuovi prima tutti

@@ -15,7 +15,6 @@ import javax.swing.JTextField;
 
 /**
  * La piccola finestra che si apre quando si seleziona l'item "Crea database..." dal menù Funzioni.
- * @author Altieri Massimiliano
  */
 public class CreaDatabase extends JFrame implements ActionListener {
 

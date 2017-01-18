@@ -3,7 +3,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -12,6 +11,11 @@ import junit.framework.Assert;
 
 @SuppressWarnings("deprecation")
 
+/**
+ * 
+ * Testa i metodi della classe ServiziFile.
+ *
+ */
 public class TestServiziFile {
 	
 	// utilizzati per i test estraiRighe
@@ -39,7 +43,9 @@ public class TestServiziFile {
 	//utilizzati per i test estraiColonne
 	String [] colonne1;
 
-	
+	/**
+	 * Inizializza gli array utilizzati nei test successivi.
+	 */
 	@Before
 	public void setUp() {
 		//utilizzati per i test estraiRighe
@@ -88,13 +94,11 @@ public class TestServiziFile {
 		
 	}
 	
-	@After
-	public void tearDown() 
-	{
-	}
+	
 	
 	/**
-	 * @throws FileNotFoundException 
+	 * Testa il metodo estraiRighe della classe ServiziFile.
+	 * @throws FileNotFoundException Nel caso in cui il file a cui ci si riferisce non esista.
 	 *
 	 */
 	@Test
@@ -116,7 +120,8 @@ public class TestServiziFile {
 	}
 	
 	/**
-	 * 
+	 * Testa il metodo estraiTipi della classe ServiziFile.
+	 * @throws FileNotFoundException Nel caso in cui il file a cui ci si riferisce non esista.
 	 */
 	@Test
 	public void testEstraiTipi () throws FileNotFoundException
@@ -133,7 +138,8 @@ public class TestServiziFile {
 	}
 	
 	/**
-	 * @throws FileNotFoundException 
+	 * Testa il metodo estraiColonne della classe ServiziFile.
+	 * @throws FileNotFoundException Nel caso in cui il file a cui ci si riferisce non esista.
 	 * 
 	 */
 	@Test
